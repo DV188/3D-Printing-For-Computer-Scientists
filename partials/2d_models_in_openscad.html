@@ -1,0 +1,117 @@
+<h1>2D Models In OpenSCAD</h1>
+
+<h3>Starting Simple</h3>
+
+<p>Before jumping into the third dimension, let's take a look into <a href="http://www.openscad.org">OpenSCAD's</a> two dimensional capabilities.  Shapes drawn in two dimensions are  infinitely thin, however, they are rendered with a thickness in your preview window.</p>
+
+<h3>The Square</h3>
+
+<p>The square function in OpenSCAD can be used to draw two dimensional squares and rectangles to the screen.</p>
+
+<h5><a href="openscad_models/square.scad">square.scad</a></h5>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The square function draws a 2D square.
+ * Parameters:
+ *      size - vector (rectangle) or number (square) representing the size of the square
+ *      center - boolean specifying if the square is centered on (0, 0, 0) or not
+ */</span>
+<span class="hljs-built_in">square</span>(size = [<span class="hljs-number">5, 10</span>], center = <span class="hljs-string">true</span>);</code></pre>
+
+<p>The following two dimensional rectangle should be produced:</p>
+
+<a href="img/openscad-square.png"><img ng-src="img/openscad-square.png" id="centered"></a>
+
+<h3>The Circle</h3>
+
+<p>The circle functions is very similar to the square function but includes <b>$fa</b>, <b>$fs</b>, and <b>$fn</b>.  These parameters are all special variables that are used to round features throughout your program.  <b>$fn</b> is a combination of the other two and can be used to increase the resolution or smoothness of a round primitive shape.  Higher resolutions can slow down the render time of more complex objects.</p>
+
+<h5><a href="openscad_models/circle.scad">circle.scad</a></h5>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The circle function draws a 2d circle.
+ * Parameters:
+ *      r - numerical value representing the circles radius
+ *      d - numerical value representing the circles diameter
+ *      $fa - fragment angle in degrees
+ *      $fs - fragment size in mm
+ *      $fn - resolution of the object
+ */</span>
+<span class="hljs-built_in">circle</span>(r = <span class="hljs-number">10</span>, <span class="hljs-keyword">$fn</span> = <span class="hljs-number">100</span>);</code></pre>
+
+<p>The result should be a circle with diameter 20:</p>
+
+<a href="img/openscad-circle.png"><img ng-src="img/openscad-circle.png" id="centered"></a>
+
+<p>We can modify our circle to create regular polygons by simply adjusting the value of our <b>$fn</b> variable.  In this example we can create a simple pentagon by setting <b>$fn</b> = 5:</p>
+
+<pre><code class="hljs openscad"><span class="hljs-comment"></span><span class="hljs-built_in">circle</span>(r = <span class="hljs-number">10</span>, <span class="hljs-keyword">$fn</span> = <span class="hljs-number">5</span>);</code></pre>
+
+<a href="img/openscad-pentagon.png"><img ng-src="img/openscad-pentagon.png" id="centered"></a>
+
+<h1>The Polygon</h1>
+
+Creating a polygon in OpenSCAD consists of creating a series of points that act as vertices for the polygon to be created.  OpenSCAD connects these vertices with edges and fills the shape.
+
+<h5><a href="openscad_models/polygon.scad">polygon.scad</a></h5>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The polygon function creates a polygonal shape using Cartesian points specified by the programmer.
+ * Parameters:
+ *      points - vector of vectors representing two dimensional x, y points
+ *      paths - specifies how the points are connected explicitly
+ */</span>
+<span class="hljs-built_in">polygon</span>(points = [[<span class="hljs-number">0, 0</span>], [<span class="hljs-number">20, 0</span>], [<span class="hljs-number">16, 10</span>], [<span class="hljs-number">4, 10]</span>]);</code></pre>
+
+<p>A two dimensional polygon, made in the shape of a trapezoid:</p>
+
+<a href="img/openscad-polygon.png"><img ng-src="img/openscad-polygon.png" id="centered"></a>
+
+<p>If we specified the polygon function's <i>path</i> variable, we can use more advanced techniques like cutting holes:</p>
+
+<h5><a href="openscad_models/polygon_hole.scad">polygon_hole.scad</a></h5>
+
+<pre><code class="hljs openscad">trapezoid = [[<span class="hljs-number">0, 0</span>], [<span class="hljs-number">20, 0</span>], [<span class="hljs-number">16, 10</span>], [<span class="hljs-number">4, 10</span>]]; <span class="hljs-comment">// Points.</span>
+trapezoid_edges = [<span class="hljs-number">0,1,2,3</span>]; <span class="hljs-comment">// Paths.</span>
+triangle = [[<span class="hljs-number">8, 2</span>], [<span class="hljs-number">12, 2</span>], [<span class="hljs-number">10, 8</span>]]; <span class="hljs-comment">// Points.</span>
+triangle_edges = [<span class="hljs-number">4,5,6</span>]; <span class="hljs-comment">// Paths.</span>
+
+<span class="hljs-built_in">polygon</span>(<span class="hljs-function"><span class="hljs-built_in">concat</span></span>(trapezoid, triangle),[trapezoid_edges, triangle_edges]);</code></pre>
+
+<p>The result is a rather interesting looking polygon with a hole cut from the center.</p>
+
+<a href="img/openscad-polygon_hole.png"><img ng-src="img/openscad-polygon_hole.png" id="centered"></a>
+
+<h1>Writing Text</h1>
+
+Many three dimensional prints have lettering.  Whether someones name or business title, text is modelled frequently.  OpenSCAD uses fonts from your computer or fonts provided as a separate font file.
+
+<h5><a href="openscad_models/text.scad">text.scad</a></h5>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The text function draws two dimensional text with the given string.
+ * Parameters:
+ *      text - string representing what is displayed as output
+ *      size - number representing the height above the baseline of your text
+ *      font - string representing the font you would like the text to be in
+ *      halign - string for horizontal alignment, left, center, right
+ *      valign - string for vertical alignment, baseline, center, top, bottom
+ *      spacing - numerical value to increase or decrease the space between characters
+ *      direction - direction for which the text is written
+ *      language - string representing the language for which the string was written
+ *      script - string representing the script of the text
+ *      $fn - resolution of the object
+ */</span>
+<span class="hljs-built_in">text</span>(text = <span class="hljs-string">"Hello World"</span>, size = <span class="hljs-number">10</span>, font = <span class="hljs-string">"Liberation Sans:style=Italic"</span>,
+        halign = <span class="hljs-string">"left"</span>, valign = <span class="hljs-string">"baseline"</span>, spacing = <span class="hljs-number">1</span>, direction = <span class="hljs-string">"ltr"</span>,
+        language = <span class="hljs-string">"en"</span>, script = <span class="hljs-string">"latin"</span>, <span class="hljs-keyword">$fn</span> = <span class="hljs-number">20</span>);</code></pre>
+
+<p>This code produces the following text:</p>
+
+<a href="img/openscad-text.png"><img ng-src="img/openscad-text.png" id="centered"></a>
+
+<div class="btn-group btn-group-justified" id="page-next">
+    <a href="#/openscad_basics" class="btn btn-default"><small><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></small> OpenSCAD Basics</a>
+    <a class="btn btn-default">2D Models In OpenSCAD</a>
+    <a href="#/3d_models_in_openscad" class="btn btn-default">3D Models In OpenSCAD <small><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></a>
+</div>

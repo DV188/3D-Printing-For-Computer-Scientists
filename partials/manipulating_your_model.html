@@ -1,0 +1,61 @@
+<h1>Manipulating Your Model</h1>
+
+<p>Now that we know how to make basic shapes using <a href="http://www.openscad.org/">OpenSCAD's</a> built in functions, let's take a look at ways of manipulating these shapes.</p>
+
+<h3>Linear Extrusion</h3>
+
+<p>Linear extrusions are the simplest extrusion being discussed.  By extruding a two dimensional shape we are essentially pulling the shape into the third dimension to create a new model.  We will begin by drawing a two dimensional square to then pull into three dimension in the form of a cube.</p>
+
+<a href="openscad_models/linear_extrude.scad"><h5>linear_extrude.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The linear_extrude function stretches an object based on the parameters provided.
+ * Parameters:
+ *      height - specifies the length at which the object will be extruded
+ *      center - boolean specifying if the extrusion will be centered around the object or not
+ *      convexity - specifies the maximum number of front sides (back sides) a ray intersecting the object might penetrate
+ *      twist - the degree for which the extrusion is twisted around its height axis
+ */</span>
+<span class="hljs-built_in">linear_extrude</span>(size = <span class="hljs-number">10</span>, center = <span class="hljs-string">true</span>, convexity = <span class="hljs-number">10</span>, twist = <span class="hljs-number">0</span>) {
+    <span class="hljs-built_in">square</span>(size = <span class="hljs-number">10</span>, center = <span class="hljs-string">true</span>);
+}</code></pre>
+
+<p>The output should look like this:</p>
+
+<a href="img/openscad-linear_extrude.png"><img ng-src="img/openscad-linear_extrude.png" id="centered"></a>
+
+<p>Substituting a value for the twist parameter and smoothing the object provide results like this:</p>
+
+<pre><code class="hljs openscad"><span class="hljs-built_in">linear_extrude</span>(size = <span class="hljs-number">10</span>, center = <span class="hljs-string">true</span>, convexity = <span class="hljs-number">10</span>, twist = <span class="hljs-number">50</span>, <span class="hljs-keyword">$fn</span> = <span class="hljs-number">200</span>)</code></pre>
+
+<a href="img/openscad-linear_extrude_twist.png"><img ng-src="img/openscad-linear_extrude_twist.png" id="centered"></a>
+
+<p>Adding the scale parameter will scale the extrusion with respect to the scale size at the end of the extrusion height.  The result is a gradually increasing object as one travels towards the end of the extrusion.  Scale can also be used asymmetrically using a vector instead of a number.</p>
+
+<pre><code class="hljs openscad"><span class="hljs-built_in">linear_extrude</span>(size = <span class="hljs-number">10</span>, center = <span class="hljs-string">true</span>, convexity = <span class="hljs-string">true</span>, scale = <span class="hljs-number">2</span>)</code></pre>
+
+<a href="img/openscad-linear_extrude_scale.png"><img ng-src="img/openscad-linear_extrude_scale.png" id="centered"></a>
+
+<h3>Rotate Extrusion</h3>
+
+<p>Rotational extrusions wrap the object around the <b>Z</b> axis following the <a href="https://en.wikipedia.org/wiki/Right-hand_rule">right hand rule</a> (just like cross product).  Rotational extrusions are easily explained with an example:</p>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The rotate_extrude function wraps an object around the z-axis.
+ * Parameters:
+ *      convexity - specifies the maximum number of front sides (back sides) a ray intersecting the object might penetrate
+ */</span>
+<span class="hljs-built_in">rotate_extrude</span>(convexity = <span class="hljs-number">10</span>) {
+    <span class="hljs-built_in">translate</span>([<span class="hljs-number">10, 0, 0</span>]) <span class="hljs-comment">// Move object up 10 along the x-axis.</span>
+        <span class="hljs-built_in">square</span>(size = <span class="hljs-number">10</span>, center = <span class="hljs-string">true</span>);
+}</code></pre>
+
+<p>The result of running this code is as follows:</p>
+
+<a href="img/openscad-rotate_extrude.png"><img ng-src="img/openscad-rotate_extrude.png" id="centered"></a>
+
+<div class="btn-group btn-group-justified" id="page-next">
+    <a href="#/importing_cad_drawings" class="btn btn-default"><small><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></small> Importing CAD Drawings</a>
+    <a class="btn btn-default">Manipulating Your Model</a>
+    <a href="#/transforming_your_model" class="btn btn-default">Transforming Your Model <small><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></a>
+</div>

@@ -1,0 +1,41 @@
+<h1>List Comprehensions</h1>
+
+<p><a href="http://www.openscad.org/">OpenSCAD</a> uses the <a href="https://en.wikipedia.org/wiki/Functional_programming">functional programming paradigm</a>.  Programmers with any functional programming experience will know the importance of the list and how it provides unique solutions to many problems.</p>
+
+<h3>Lists</h3>
+
+<p>We will outline a few different ways for creating a list in OpenSCAD.</p>
+
+<a href="openscad_models/list.scad"><h5>list.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">// Construction of a list can be performed as follows.</span>
+
+<span class="hljs-comment">// Using a for loop.</span>
+list_1 = [<span class="hljs-built_in">for</span> (i = [<span class="hljs-number">0: 5: 60</span>]) i];
+<span class="hljs-built_in">echo</span>(list_1);
+
+string =<span class="hljs-string"> "Is the year 2015 or 2016?"</span>;
+<span class="hljs-built_in">echo</span>(string);
+list_2 = [<span class="hljs-built_in">for</span> (i = [<span class="hljs-number">20</span>: <span class="hljs-built_in">len</span>(string) - <span class="hljs-number">2</span>]) string[i]]; <span class="hljs-comment">// String manipulations using lists.</span>
+<span class="hljs-built_in">echo</span>(list_2);
+
+list_3 = [<span class="hljs-built_in">for</span> (i = [<span class="hljs-number">1, 2, 3, 4, 5</span>]) <span class="hljs-built_in">pow</span>(i, <span class="hljs-number">2</span>)];
+<span class="hljs-built_in">echo</span>(list_3);
+
+<span class="hljs-comment">// Using if statements.</span>
+list_4 = [<span class="hljs-built_in">for</span> (i = [<span class="hljs-number">1: 100</span>]) <span class="hljs-built_in">if</span> (i % <span class="hljs-number">25</span> == <span class="hljs-number">0</span>) i];
+<span class="hljs-built_in">echo</span>(list_4);
+
+<span class="hljs-comment">// Using the let statement.</span>
+list_5 = [<span class="hljs-built_in">for</span> (i = [<span class="hljs-number">1: 90: 360</span>]) <span class="hljs-built_in">let</span> (x = <span class="hljs-built_in">sin</span>(i), y = <span class="hljs-built_in">cos</span>(i)) <span class="hljs-built_in">pow</span>(x, <span class="hljs-number">2</span>) + <span class="hljs-built_in">pow</span>(y, <span class="hljs-number">2</span>)];
+<span class="hljs-built_in">echo</span>(list_5);</code></pre>
+
+<p>The echo command from the previous snippets of code creates an output of several lists that correspond to each of the examples:</p>
+
+<a href="img/openscad-list.png"><img ng-src="img/openscad-list.png" id="centered"></a>
+
+<div class="btn-group btn-group-justified" id="page-next">
+    <a href="#/familiar_programming_functions" class="btn btn-default"><small><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></small> Familiar Programming Functions</a>
+    <a class="btn btn-default">List Comprehensions</a>
+    <a href="#/functions_and_modules" class="btn btn-default">Functions And Modules <small><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></a>
+</div>

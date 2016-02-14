@@ -1,0 +1,39 @@
+<h1>External Files</h1>
+
+<p>Until this point, all our <a href="http://www.openscad.org/">OpenSCAD</a> models have been contained in a single file.  OpenSCAD allows programmers to import external libraries and files to be used together.</p>
+
+<h3>Include And Use</h3>
+
+<p>The include and use functions draw from external files.  Include acts as a preprocessor and copies the code specified from one file to the current working file.  The use function imports the modules and functions but does not run the code unless you call the functions explicitly.</p>
+
+<a href="openscad_models/include_and_use.scad"><h5>include_and_use.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * Include and use draw code from another external file for use within the calling code.
+ */</span>
+
+<span class="hljs-built_in">include</span> <modules.scad> <span class="hljs-comment">// Draws the flag as if it were pasted into this file.</span>
+
+<span class="hljs-built_in">use</span> <functions.scad> <span class="hljs-comment">// Allows us to use the functions written in the file.</span>
+<span class="hljs-built_in">echo</span>(<span class="hljs-built_in">fibonacci</span>(<span class="hljs-number">10</span>));</code></pre>
+
+<p>Using the functions created in the <a href="#/functions_and_modules">Functions And Modules</a> page by including and using what was previously written.</p>
+
+<a href="img/openscad-include_and_use.png"><img ng-src="img/openscad-include_and_use.png" id="centered"></a>
+
+<h3>Creating .stl Files</h3>
+
+<p>With your model finally completed, the last step in the <a href="https://en.wikipedia.org/wiki/Computer-aided_design">CAD</a> portion of creating a 3D printable object is saving you file as an <i>.stl</i>.  STL stands for <a href="https://en.wikipedia.org/wiki/STL_(file_format)">stereolithography</a>.  Nearly all consumer 3D printers used today have the <i>.stl</i> file format as the default standard.</p>
+
+<p>Using OpenSCAD, negotiate to the <i>File > Export > Export as STL...</i> option to export your model to a printable format.</p>
+
+<a href="img/openscad-stl.png"><img ng-src="img/openscad-stl.png" id="centered"></a>
+
+<p></p> <!-- Space below image until next paragraph tag. -->
+
+<p>You have now created both a project file, <i>.scad</i>, and a file ready to be converted into G-code, <i>.stl</i>.</p>
+
+<div class="btn-group btn-group-justified" id="page-next">
+    <a href="#/debugging" class="btn btn-default"><small><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></small> Debugging</a>
+    <a class="btn btn-default">External Files</a>
+</div>

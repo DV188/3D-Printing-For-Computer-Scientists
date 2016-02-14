@@ -1,0 +1,83 @@
+<h1>Functions And Modules</h1>
+
+<p>Every Computer Scientist is familiar with <a href="http://www.cs.utah.edu/~germain/PPS/Topics/functions.html">functions</a>.  Functions allow us as programmers to group together steps in order to solve a frequently occurring problem.  Functions can take in data as a parameter and be used just as any of the <a href="http://www.openscad.org/">OpenSCAD</a> functions we have looked at previously.  OpenSCAD provides a means of creating both functions and modules within the language.  Functions have returns values while modules do not.  Both functions and modules will be looked at below.</p>
+
+<h3>Functions</h3>
+
+<p>Functions in OpenSCAD allow you to reuse portions of code by specifying the name of your function and the parameters the functions requires.  Functions created have their own scope and calculate values at compile-time.</p>
+
+<a href="openscad_models/functions.scad"><h5>functions.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The function keyword allows the programmer to define their own functions.
+ * Parameters:
+ *      name - string to determine the name for which your custom function will be referred to by
+ *      parameters - zero or more arguments used within the scope of your function
+ *      value - an expression to calculate the value to be returned
+ */</span>
+<span class="hljs-keyword">function</span> <span class="hljs-built_in">sum_of_squares</span>(x, y) = x*x + y*y; <span class="hljs-comment">// Returns the sum of squares for given numbers.</span>
+<span class="hljs-built_in">echo</span>(<span class="hljs-string">"1:  "</span>, <span class="hljs-built_in">sum_of_squares</span>(<span class="hljs-number">4, 8</span>));
+<span class="hljs-built_in">echo</span>(<span class="hljs-string">"2:  "</span>, <span class="hljs-built_in">sum_of_squares</span>(<span class="hljs-built_in">sum_of_squares</span>(<span class="hljs-number">4, 4</span>), <span class="hljs-built_in">sum_of_squares</span>(<span class="hljs-number">8, 8</span>))); <span class="hljs-comment">// Functions can be parameters as well.</span>
+
+<span class="hljs-keyword">function</span> <span class="hljs-built_in">rectangle_vertices</span>(width, height) = [[<span class="hljs-number">0, 0</span>], [width, <span class="hljs-number">0</span>], [width, height], [<span class="hljs-number">0</span>, height]]; <span class="hljs-comment">// Returns a vector.</span>
+<span class="hljs-built_in">polygon</span>(<span class="hljs-built_in">rectangle_vertices</span>(<span class="hljs-number">5, 10</span>));
+
+<span class="hljs-keyword">function</span> <span class="hljs-built_in">fibonacci</span>(n) = ((n < <span class="hljs-number">2</span>) ?  n : <span class="hljs-built_in">fibonacci</span>(n - <span class="hljs-number">1</span>) + <span class="hljs-built_in">fibonacci</span>(n - <span class="hljs-number">2</span>)); <span class="hljs-comment">// Recursion is supported as well.</span>
+    <span class="hljs-built_in">for</span> (i = [<span class="hljs-number">1: 5</span>]) <span class="hljs-comment">// Exponential functions, be wary of larger values.</span>
+        <span class="hljs-built_in">echo</span>(<span class="hljs-built_in">fibonacci</span>(i));</code></pre>
+
+<p>The output for all of these functions will be displayed in your console window.</p>
+
+<a href="img/openscad-functions.png"><img ng-src="img/openscad-functions.png" id="centered"></a>
+
+<h3>Modules</h3>
+
+<p>Modules can group objects together to be used in conjunction with your model.</p>
+
+<a href="openscad_models/modules.scad"><h5>modules.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * Modules define object together in a single structure.
+ * Parameters:
+ *      name - name of the module
+ *      parameters - parameters passed to the module to be used within its scope
+ *      actions - statements made to produce an ouput
+ */</span>
+<span class="hljs-keyword">module</span> <span class="hljs-built_in">flag</span>(height, flag_width, flag_height) {
+    <span class="hljs-built_in">difference</span>() {
+        <span class="hljs-comment">// Combine flag pole to flag backing.</span>
+        <span class="hljs-built_in">union</span>() {
+            flag_diameter = height/<span class="hljs-number">20</span>;
+
+            <span class="hljs-built_in">cylinder</span>(d = flag_diameter, h = height, <span class="hljs-keyword">$fn</span> = <span class="hljs-number">50</span>); <span class="hljs-comment">// Flag pole.</span>
+
+            <span class="hljs-built_in">translate</span>([<span class="hljs-number">0</span>, -flag_diameter/<span class="hljs-number">4</span>, height - flag_height]) <span class="hljs-comment">// Move flag backing to the top of pole and center.</span>
+                <span class="hljs-built_in">cube</span>([flag_width, flag_diameter/<span class="hljs-number">2</span>, flag_height]); <span class="hljs-comment">// Flag back, to be connected to pole and maple leaf.</span>
+        }
+
+        <span class="hljs-comment">// Subtract maple leaf from flag pole and flag backing.</span>
+        <span class="hljs-built_in">translate</span>([<span class="hljs-number">25, 3, 85</span>]) { <span class="hljs-comment">// Move up flag pole and to the right.</span>
+            <span class="hljs-built_in">rotate</span>([<span class="hljs-number">90, 0, 0</span>]) { <span class="hljs-comment">// Orient maple leaf wrt. pole.</span>
+                <span class="hljs-built_in">linear_extrude</span>(height = <span class="hljs-number">6</span>) { <span class="hljs-comment">// Convert 2D to 3D.</span>
+                    <span class="hljs-comment">// Polygon with vertices made to look like a maple leaf.</span>
+                    <span class="hljs-built_in">polygon</span>(points = [<span class="hljs-number">[1, -3], [5, -4], [4, -3], [9, 1], [7, 2], [8, 5], [5, 4], [5, 5],
+                        [3, 4], [4, 9], [2, 7], [0,10], [-2, 7], [-4, 8], [-3, 3], [-5, 6],
+                        [-5, 4], [-8, 5], [-7, 2], [-9, 1], [-4, -3], [-5,-4], [0, -3], [2, -7],
+                        [2, -6], [1, -3]</span>]);
+                }
+            }
+        }
+    }
+}
+
+<span class="hljs-built_in">flag</span>(<span class="hljs-number">100, 50, 25</span>); <span class="hljs-comment">// Draws the flag by calling the flag module.</span></code></pre>
+
+<p>The output from our newly created flag module creates a flag with the given dimensions:</p>
+
+<a href="img/openscad-modules.png"><img ng-src="img/openscad-modules.png" id="centered"></a>
+
+<div class="btn-group btn-group-justified" id="page-next">
+    <a href="#/list_comprehensions" class="btn btn-default"><small><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></small> List Comprehensions</a>
+    <a class="btn btn-default">Functions And Modules</a>
+    <a href="#/debugging" class="btn btn-default">Debugging <small><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></a>
+</div>

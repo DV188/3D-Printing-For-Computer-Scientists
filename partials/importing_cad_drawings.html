@@ -1,0 +1,26 @@
+<h1>Using CAD Drawings</h1>
+
+<p>The <a href="https://en.wikipedia.org/wiki/AutoCAD_DXF"><i>.dxf</i></a> file type was developed by <a href="http://www.autodesk.ca/en">Autodesk</a> as a format for saving <a href="https://en.wikipedia.org/wiki/Computer-aided_design">computer-aided design</a> (CAD) drawings.  This format is open source and very popular in a lot of different CAD software packages.  If you come across these file types and you would like to 3D print them, <a href="http://www.openscad.org">OpenSCAD</a> provides functionality to do just that.</p>
+
+<h3>Import</h3>
+
+Using what we learned to <a href="#/manipulating_your_model">manipulate</a> two dimensional images into three dimensional models, the import function provided by OpenSCAD can take a <i>.dxf</i> file and turn it into much more.  The <i>.dxf</i> being loaded is from the <a href="http://printrbot.com/shop/printrbot-starter-kit/">Printrbot Starter Kit</a>.
+
+<a href="openscad_models/import.scad"><h5>import.scad</h5></a>
+<a href="openscad_models/Base_Plate_V2_.dxf"><h5>Base_Plate_V2_.dxf</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The import function is used to import .dxf file typically created with CAD software.
+ */</span>
+<span class="hljs-built_in">linear_extrude</span>(height = <span class="hljs-number">10</span>, center = <span class="hljs-string">true</span>)
+    <span class="hljs-built_in">import</span> (file = <span class="hljs-string">"Base_Plate_V2_.dxf"</span>);</code></pre>
+
+<p>Our two dimensional CAD drawing is now three dimensional!</p>
+
+<a href="img/openscad-import.png"><img ng-src="img/openscad-import.png" id="centered"></a>
+
+<div class="btn-group btn-group-justified" id="page-next">
+    <a href="#/3d_models_in_openscad" class="btn btn-default"><small><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></small> 3D Models In OpenSCAD</a>
+    <a class="btn btn-default">Using CAD Drawings</a>
+    <a href="#/manipulating_your_model" class="btn btn-default">Manipulating Your Model <small><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></a>
+</div>

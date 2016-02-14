@@ -1,0 +1,88 @@
+<h1>Debugging</h1>
+
+<p>Debugging in <a href="http://www.openscad.org/">OpenSCAD</a> can be challenging.  Compile-time errors are not readily explained and as with any three dimensional object creation sometimes problems are not obvious.  OpenSCAD has several modifiers that can be added to your code that can help with debugging.</p>
+
+<h3>Background Modifier</h3>
+
+<p>The background modifier (<i>%</i>) draws the object onto your model without interacting with the model.  Objects affected by the background modifier are drawn in grey.</p>
+
+<a href="openscad_models/background_modifier.scad"><h5>background_modifier.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The background modifier (%) shows the object as it would be had you proceeded with your actions.
+ */</span>
+
+<span class="hljs-built_in">cube</span>([<span class="hljs-number">10, 10, 10</span>]);
+
+%<span class="hljs-built_in">translate</span>([<span class="hljs-number">5, 5, 5</span>]) <span class="hljs-comment">// Cube drawn in grey and not actually rendered.</span>
+    <span class="hljs-built_in">cube</span>([<span class="hljs-number">10, 10, 10</span>]);</code></pre>
+
+<p>The translucent grey cube has been suppressed by the background modifier in our example below.  This image is only available in the preview mode and will not show up if the model is fully rendered.</p>
+
+<a href="img/openscad-background_modifier.png"><img ng-src="img/openscad-background_modifier.png" id="centered"></a>
+
+<h3>Debug Modifier</h3>
+
+<p>When cutting holes or subtracting material from your model, the debug modifier (<i>#</i>) can come in use when you would like to see the part you are modifying.  The debug modifier outlines the part in translucent pink to show the object in the preview window.</p>
+
+<a href="openscad_models/debug_modifier.scad"><h5>debug_modifier.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The debug modifier outlines the modified object for easier inspection.
+ */</span>
+
+<span class="hljs-built_in">difference</span>() {
+    <span class="hljs-built_in">cube</span>([<span class="hljs-number">10, 10, 10</span>]);
+
+    #<span class="hljs-built_in">translate</span>([<span class="hljs-number">5, 5, 5</span>])
+        <span class="hljs-built_in">cube</span>([<span class="hljs-number">10, 10, 10</span>]);
+}</code></pre>
+
+<p>This time, with the debug modifier, the cube is now translucent pink.  The difference taken out of the first cube is still performed but the both parts are displayed for a better view of what OpenSCAD is trying to accomplish.</p>
+
+<a href="img/openscad-debug_modifier.png"><img ng-src="img/openscad-debug_modifier.png" id="centered"></a>
+
+<h3>Root Modifier</h3>
+
+<p>The root modifier (<i> ! </i>) will only display what is being modified and hide the rest from view.</p>
+
+<a href="openscad_models/root_modifier.scad"><h5>root_modifier.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The root modifier (!) hides the rest of the model from view.
+ */</span>
+
+<span class="hljs-built_in">cube</span>([<span class="hljs-number">10, 10, 10</span>]);
+
+!<span class="hljs-built_in">translate</span>([<span class="hljs-number">5, ,5, 5</span>])
+    <span class="hljs-built_in">cube</span>([<span class="hljs-number">10, 10, 10</span>]);</code></pre>
+
+<p>The output of the previous code is the same as the other cubes created.  This output, however, does not display the other cube as all output is suppressed other than the object being modified by the root modifier.</p>
+
+<a href="img/openscad-root_modifier.png"><img ng-src="img/openscad-root_modifier.png" id="centered"></a>
+
+<h3>Disable Modifier</h3>
+
+<p>The final modifier is the disable modifier (<i>*</i>).  The disable modifier disables the object being modified, it acts in the opposite way as the root modifier.</p>
+
+<a href="openscad_models/disable_modifier.scad"><h5>disable_modifier.scad</h5></a>
+
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The disable modifier (*) hides the object from the view.
+ */</span>
+
+<span class="hljs-built_in">cube</span>([<span class="hljs-number">10, 10, 10</span>]);
+
+*<span class="hljs-built_in">translate</span>([<span class="hljs-number">5, 5, 5</span>])
+    <span class="hljs-built_in">cube</span>([<span class="hljs-number">10, 10, 10</span>]);</code></pre>
+
+<p>An opposite output from the root modifier is created by the code above and shown in the image below.</p>
+
+<a href="img/openscad-disable_modifier.png"><img ng-src="img/openscad-disable_modifier.png" id="centered"></a>
+
+<div class="btn-group btn-group-justified" id="page-next">
+    <a href="#/functions_and_modules" class="btn btn-default"><small><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></small> Functions And Modules</a>
+    <a class="btn btn-default">Debugging</a>
+    <a href="#/external_files" class="btn btn-default">External Files <small><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></a>
+</div>

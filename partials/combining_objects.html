@@ -1,0 +1,106 @@
+<h1>Combining Objects</h1>
+
+<p>Until now, we have only made individual object that are independent of one another.  When trying to create three dimensional models to be used with a 3D printer, several of these smaller objects can be combined to create a larger model.  <a href="http://www.openscad.org">OpenSCAD</a> has several functions to combine primitive shapes as discussed below.</p>
+
+<h3>Union</h3>
+
+<p>Concepts from your mathematics classes should help to familiarize yourself with unions.  A union in OpenSCAD act in a similar fashion to a union in <a href="https://en.wikipedia.org/wiki/Union_(set_theory)">set theory</a>.  Union simply combines two objects, it takes the points from model 1 or model 2.</p>
+
+<p>The following code uses techniques learned in earlier lessons to create a very simplistic Canadian flag.  The union operations <i>glues</i> the three primitive objects together to form a complete three dimensional model.  When reading through OpenSCAD code it may be easiest to read outward from the object (<i>ie</i>. <a href="#/2d_models_in_openscad">polygon</a>, <a href="#/3d_models_in_openscad">cube</a>, <a href="#/3d_models_in_openscad">cylinder</a>) to see how the transformations applied to that object are coordinated. </p>
+
+<h5><a href="openscad_models/union.scad">union.scad</a></h5>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The union function combines two objects into single model where they intersect.
+ * Union can be used for both 2D and 3D objects but cannot mix dimensions.
+ */</span>
+<span class="hljs-built_in">union</span>() {
+    <span class="hljs-built_in">cylinder</span>(d = <span class="hljs-number">5</span>, h = <span class="hljs-number">100</span>, <span class="hljs-keyword">$fn</span> = <span class="hljs-number">50</span>); <span class="hljs-comment">// Flag pole.</span>
+
+    <span class="hljs-built_in">translate</span>([<span class="hljs-number">25, 0, 85</span>]) { <span class="hljs-comment">// Move up flag pole and to the right.</span>
+        <span class="hljs-built_in">rotate</span>([<span class="hljs-number">90, 0, 0</span>]) { <span class="hljs-comment">// Orient maple leaf wrt. pole.</span>
+            <span class="hljs-built_in">linear_extrude</span>(height = <span class="hljs-number">5</span>) { <span class="hljs-comment">// Convert 2D to 3D.</span>
+                <span class="hljs-comment">// Polygon with vertices made to look like a maple leaf.</span>
+                <span class="hljs-built_in">polygon</span>(points = [<span class="hljs-number">[1, -3], [5, -4], [4, -3], [9, 1], [7, 2], [8, 5], [5, 4],
+                    [5, 5], [3, 4], [4, 9], [2, 7], [0,10], [-2, 7], [-4, 8], [-3, 3], [-5, 6],
+                    [-5, 4], [-8, 5], [-7, 2], [-9, 1], [-4, -3], [-5,-4], [0, -3], [2, -7],
+                    [2, -6], [1, -3]</span>]);
+            }
+        }
+    }
+
+    <span class="hljs-built_in">translate</span>([<span class="hljs-number">0, -2.5, 75</span>]) <span class="hljs-comment">// Move flag backing to the top of pole and center.</span>
+    <span class="hljs-built_in">cube</span>([<span class="hljs-number">50, 5, 25</span>]); <span class="hljs-comment">// Flag back, to be connected to pole and maple leaf.</span>
+}</code></pre>
+
+<p>The flag, although basic, shows some of the possibilities the union function provides for combining simple shapes into something more complex.</p>
+
+<a href="img/openscad-union.png"><img ng-src="img/openscad-union.png" id="centered"></a>
+
+<p>If we look at the wireframe drawing of our flag (<i>View</i> > <i>Wireframe</i> or <i>F11</i>) we can see the objects are not simple overlapped with one another but instead combine via the union function.  This is a very important point if you wanted to print this model.  The printer will not print unnecessary overlaps that would occur on the inside of your models due to overlapping or none unionized objects or features.</p>
+
+<a href="img/openscad-union_wireframe.png"><img ng-src="img/openscad-union_wireframe.png" id="centered"></a>
+
+<h1>Difference</h1>
+
+<p>We looked at union where two objects are combined into a single model.  What happens if we would like to subtract one object from another?  Difference was provided to do just this.  Difference takes the intersecting objects and creates a hole our of one object with respect to the shape of the other.</p>
+
+<p>We will take our flag example and adjust the model to visualize the affects of the difference function. In order to carve a hole through an object the object being subtracted must be greater than or equal to the size of the piece being subtracted from.</p>
+
+<a href="openscad_models/difference.scad"><h5>difference.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The difference function subtracts models from one another.
+ * Subsequent objects are subtracted from the first model listed.
+ */</span>
+<span class="hljs-built_in">difference</span>() {
+    <span class="hljs-comment">// Combine flag pole to flag backing.</span>
+    <span class="hljs-built_in">union</span>() {
+        <span class="hljs-built_in">cylinder</span>(d = <span class="hljs-number">5</span>, h = <span class="hljs-number">100</span>, <span class="hljs-keyword">$fn</span> = <span class="hljs-number">50</span>); <span class="hljs-comment">// Flag pole.</span>
+
+        <span class="hljs-built_in">translate</span>([<span class="hljs-number">0, -2.5, 75</span>]) <span class="hljs-comment">// Move flag backing to the top of pole and center.</span>
+        <span class="hljs-built_in">cube</span>([<span class="hljs-number">50, 5, 25</span>]); <span class="hljs-comment">// Flag back, to be connected to pole and maple leaf.</span>
+    }
+
+    <span class="hljs-comment">// Subtract maple leaf from flag pole and flag backing.</span>
+    <span class="hljs-built_in">translate</span>([<span class="hljs-number">25, 3, 85</span>]) { <span class="hljs-comment">// Move up flag pole and to the right.</span>
+        <span class="hljs-built_in">rotate</span>([<span class="hljs-number">90, 0, 0</span>]) { <span class="hljs-comment">// Orient maple leaf wrt. pole.</span>
+            <span class="hljs-built_in">linear_extrude</span>(height = <span class="hljs-number">6</span>) { <span class="hljs-number">// Convert 2D to 3D.</span>
+                <span class="hljs-comment">// Polygon with vertices made to look like a maple leaf.</span>
+                <span class="hljs-built_in">polygon</span>(points = [<span class="hljs-number">[1, -3], [5, -4], [4, -3], [9, 1], [7, 2], [8, 5], [5, 4], [5, 5],
+                    [3, 4], [4, 9], [2, 7], [0,10], [-2, 7], [-4, 8], [-3, 3], [-5, 6],
+                    [-5, 4], [-8, 5], [-7, 2], [-9, 1], [-4, -3], [-5,-4], [0, -3], [2, -7],
+                    [2, -6], [1, -3]</span>]);
+            }
+        }
+    }
+}</code></pre>
+
+<p>Our flag from union has now been altered to take the difference of the maple leaf as opposed to adding it to the flag backing.</p>
+
+<a href="img/openscad-difference.png"><img ng-src="img/openscad-difference.png" id="centered"></a>
+
+<h1>Intersection</h1>
+
+<p>The intersection of two object forming one complete model is similar to the logical and operation in set theory.</p>
+
+<a href="openscad_models/intersection.scad"><h5>intersection.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The intersection function combines two object only where they intersect each other.
+ * 2D and 3D objects can be intersected but only one dimension at a time.
+ */</span>
+<span class="hljs-built_in">intersection</span>() {
+    <span class="hljs-built_in">cube</span>([<span class="hljs-number">10, 10, 10</span>], center = <span class="hljs-string">true</span>); <span class="hljs-comment">// Cube slightly larger than the sphere.</span>
+    <span class="hljs-built_in">sphere</span>(r = <span class="hljs-number">6</span>, center = <span class="hljs-string">true</span>); <span class="hljs-comment">// Sphere wrapping some of the cube.</span>
+}</code></pre>
+
+<p>The cube intersected with a sphere creates a sphere with flat sides or a cube with rounded corners depending on how you want to look at it.</p>
+
+<a href="img/openscad-intersection.png"><img ng-src="img/openscad-intersection.png" id="centered"></a>
+
+<div class="btn-group btn-group-justified" id="page-next">
+    <a href="#/transforming_your_model" class="btn btn-default"><small><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></small> Transforming Your Model</a>
+    <a class="btn btn-default">Combining Objects</a>
+    <a href="#/familiar_programming_functions" class="btn btn-default">Familiar Programming Functions <small><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></a>
+</div>

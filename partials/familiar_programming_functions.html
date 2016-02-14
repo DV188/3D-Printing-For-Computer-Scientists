@@ -1,0 +1,147 @@
+<h1>Familiar Programming Functions</h1>
+
+<p>Up until this point, the functions we have looked at in <a href="http://www.openscad.org/">OpenSCAD</a> were more or less unique to the language and not commonly found in other programming languages.  One of the most powerful features of OpenSCAD as it pertains to three dimensional modelling is its ability to combine the drawing of shapes with the automation a program can provide.  Most of the functions discussed below should be extremely familiar to a Computer Science student or anyone who has spent some time learning a common programming language.</p>
+
+<h3>Loops</h3>
+
+<p>Loops in OpenSCAD are very similar to <i>for</i> loops in most common languages.  The idea being, start at one end and iterate to the other.  Let's begin by taking a look at several versions of OpenSCAD's <i>for</i> loop.</p>
+
+<a href="openscad_models/for_loop.scad"><h5>for_loop.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The for loop iterates over a range of items.
+ * For loops can be written several different ways depending on the programmers preference.
+ * OpenSCAD loops use ':' in place of ';'.
+ * Parameters:
+ *      start - value representing the beginning of the items to be iterated over
+ *      increment - amount increase each time the loop is ran
+ *      end - value representing the end of the items being iterated over
+ *      vector - iterates over each member in the vector
+ */</span>
+
+vector = [<span class="hljs-number">0, 1, 2, 3, 4, 5</span>];
+
+<span class="hljs-built_in">echo</span>(<span class="hljs-string">"##########"</span>);
+
+<span class="hljs-built_in">for</span> (i = vector)
+    <span class="hljs-built_in">echo</span>(i);
+
+<span class="hljs-built_in">echo</span>(<span class="hljs-string">"##########"</span>);
+
+<span class="hljs-built_in">for</span> (i = [<span class="hljs-number">2: 2: 10</span>])
+    <span class="hljs-built_in">echo</span>(i);
+
+<span class="hljs-built_in">echo</span>(<span class="hljs-string">"##########"</span>);
+
+<span class="hljs-built_in">for</span> (i = [<span class="hljs-number">[10, 15], 5, 6, [1, 2, 3]</span>])
+    echo(i);
+
+<span class="hljs-built_in">echo</span>(<span class="hljs-string">"##########"</span>);
+
+<span class="hljs-built_in">for</span> (i = [<span class="hljs-number">0: 15: 15*2</span>]) {
+    <span class="hljs-built_in">translate</span>([<span class="hljs-number">i, 0, 0</span>])
+        <span class="hljs-built_in">cube</span>([<span class="hljs-number">10, 10, 10</span>]);
+}</code></pre>
+
+<p>The output for several of the loops created can be found in your console window in OpenSCAD.  The output for these loops is highlighted in the picture below.  We can see from this example just how easy it is to replicate and properly space identical cubes.  Examples can be much more complex as you might imagine but loops in OpenSCAD are very important and useful.</p>
+
+<a href="img/openscad-for_loop.png"><img ng-src="img/openscad-for_loop.png" id="centered"></a>
+
+<h3>Nested Loops</h3>
+
+<p>Nested for loops in OpenSCAD are very powerful tools.  Nested loops using three dimensional object can be difficult to visualize without a little trial and error.  OpenSCAD provides an option for nested vectors which can be input into loops as a parameter and have powerful effects mimicking a nested loop.</p>
+
+<a href="openscad_models/nested_for_loop.scad"><h5>nested_for_loop.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">// The following is an example of a for loop using nested vectors to position
+// each of the cylinders.</span>
+<span class="hljs-built_in">for</span> (i = [<span class="hljs-number">[0, 0, 0], [10, 0, 0], [20, 0, 0],
+    [5, 0, 10,], [15, 0, 10],
+    [10, 0, 20]</span>]) {
+    <span class="hljs-built_in">translate</span>(i) {
+        <span class="hljs-built_in">rotate</span>([<span class="hljs-number">90, 0, 0</span>])
+            <span class="hljs-built_in">cylinder</span>(h = <span class="hljs-number">20</span>, r = <span class="hljs-number">4.5</span>, center = <span class="hljs-string">true</span>);
+    }
+}</code></pre>
+
+<p>Using a nested vector as input to our <i>for</i> loop, we can create a log pyramid.</p>
+
+<a href="img/openscad-nested_for_loop.png"><img ng-src="img/openscad-nested_for_loop.png" id="centered"></a>
+
+<h1>Conditionals</h1>
+
+<p>What would a programming language be without <i>if</i> statements.  OpenSCAD provides a very standard <i>if/else</i> statement any programmer would be familiar with.</p>
+
+<a href="openscad_models/if_statement.scad"><h5>if_statementscad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The if statement takes a conditional (boolean) expression as input.
+ * If return values are based on what the programmer puts in its scope.
+ */</span>
+
+<span class="hljs-keyword">$fn</span> = <span class="hljs-number">100</span>; <span class="hljs-comment">// Set the resolution of rounded surfaces.</span>
+
+<span class="hljs-comment">// Loops 4 times total.</span>
+<span class="hljs-built_in">for</span> (i = [<span class="hljs-number">0: 3</span>]) {
+    <span class="hljs-built_in">translate</span>([<span class="hljs-number">15*i, 0, 0</span>]) {
+        <span class="hljs-built_in">if</span> (i == <span class="hljs-number">0</span>)
+            <span class="hljs-built_in">cylinder</span>(h = <span class="hljs-number">10</span>, r = <span class="hljs-number">5</span>, center = <span class="hljs-string">true</span>);
+        <span class="hljs-built_in">else if</span> (i < <span class="hljs-number">2</span>)
+            <span class="hljs-built_in">cube</span>([<span class="hljs-number">10, 10, 10</span>], center = <span class="hljs-string">true</span>);
+        <span class="hljs-built_in">else</span>
+            <span class="hljs-built_in">sphere</span>(r = <span class="hljs-number">5</span>);
+    }
+}</code></pre>
+
+<p>Below you will see the output from the previous piece of code.  The object being drawn changes with respect to which element of the loop we are on currently.</p>
+
+<a href="img/openscad-if_statement.png"><img ng-src="img/openscad-if_statement.png" id="centered"></a>
+
+<h3>Mathematics</h3>
+
+<p>When drawing three dimensional models, some mathematical functions are required for complex designs.  OpenSCAD has an appreciable array of functions that do everything from basic arithmetic to trigonometry and more.  Demonstrated below are some of the math functions you can use throughout your OpenSCAD program.</p>
+
+<a href="openscad_models/math.scad"><h5>math.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-built_in">echo</span>(<span class="hljs-number">1 - 2 + 3 * 4 / 5 % 1.4</span>); <span class="hljs-comment">// Basic arithmetic operators.</span>
+
+<span class="hljs-built_in">echo</span>(<span class="hljs-built_in">pow</span>(<span class="hljs-built_in">cos</span>(<span class="hljs-number">45</span>), <span class="hljs-number">2</span>) + <span class="hljs-built_in">pow</span>(<span class="hljs-built_in">sin</span>(<span class="hljs-number">45</span>), <span class="hljs-number">2</span>)); <span class="hljs-comment">// Exponents.</span>
+
+<span class="hljs-built_in">echo</span>(<span class="hljs-built_in">abs</span>(<span class="hljs-number">-100</span>)); <span class="hljs-comment">// Magnitude.</span>
+
+<span class="hljs-built_in">echo</span>(<span class="hljs-built_in">ceil</span>(<span class="hljs-number">5.6</span>)); <span class="hljs-comment">// Rounding.</span>
+
+<span class="hljs-built_in">echo</span>(<span class="hljs-built_in">cross</span>([<span class="hljs-number">5, 10, 15</span>], [<span class="hljs-number">20, 25, 30</span>])); <span class="hljs-comment">// Vector manipulation.</span>
+
+<span class="hljs-built_in">echo</span>(<span class="hljs-built_in">max</span>([<span class="hljs-number">1, 2, 3, 4, 5, 10, 6, 7, 8</span>])); <span class="hljs-comment">// Min/max.</span>
+
+<span class="hljs-built_in">echo</span>(<span class="hljs-built_in">rands</span>(<span class="hljs-number">0, 10, 1</span>)); <span class="hljs-comment">// Randomization.</span></code></pre>
+
+<p>Take a look at your console window to see the results of these mathematical functions:</p>
+
+<a href="img/openscad-math.png"><img ng-src="img/openscad-math.png" id="centered"></a>
+
+<h1>Strings</h1>
+
+<p>A limited set of functions are available in OpenSCAD to manipulate strings.</p>
+
+<a href="openscad_models/strings.scad"><h5>strings.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">// Concatenation using str.</span>
+exclamation_point = <span class="hljs-string">"!"</span>;
+
+<span class="hljs-built_in">echo</span>(<span class="hljs-built_in">str</span>(<span class="hljs-number">3</span>,<span class="hljs-string"> "D Printing For"</span>,<span class="hljs-string"> " Computer Scientists"</span>, exclamation_point));
+
+<span class="hljs-comment">// Characters.</span>
+<span class="hljs-built_in">echo</span>(<span class="hljs-built_in">str</span>(<span class="hljs-built_in">chr</span>(<span class="hljs-number">65</span>), <span class="hljs-built_in">chr</span>(<span class="hljs-number">97</span>)));
+<span class="hljs-built_in">echo</span>(<span class="hljs-built_in">chr</span>([<span class="hljs-number">65, 97</span>]));</code></pre>
+
+<p>Once again, in the console output you will see the results of string manipulation:</p>
+
+<a href="img/openscad-strings.png"><img ng-src="img/openscad-strings.png" id="centered"></a>
+
+<div class="btn-group btn-group-justified" id="page-next">
+    <a href="#/combining_objects" class="btn btn-default"><small><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></small> Combining Objects</a>
+    <a class="btn btn-default">Familiar Programming Functions</a>
+    <a href="#/list_comprehensions" class="btn btn-default">List Comprehensions <small><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></a>
+</div>

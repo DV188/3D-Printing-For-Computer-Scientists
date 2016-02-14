@@ -1,0 +1,56 @@
+<h1>The Basics</h1>
+
+<p><a href="http://www.openscad.org">OpenSCAD</a> is a programming language with a familiar <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a> like syntax.  Unlike C, however, OpenSCAD is based on a <a href="https://en.wikipedia.org/wiki/Functional_programming">functional programming</a> paradigm that benefits the creation of our models.</p>
+
+<h3>Hello World</h3>
+
+<p>For our first program, let's begin with a Hello World example.  Feel free to use your operating system's file browser or OpenSCAD's new file button.  We will be using the terminal (<a href="https://www.gnu.org/software/bash/">Bash</a>) to manage our files.  Let us begin by creating OpenSCAD source code:</p>
+
+<pre><code class="hljs bash"><span class="hljs-built_in">$ touch</span> hello.scad</code></pre>
+
+<p>The <i>.scad</i> file extension is where the OpenSCAD source code is to be written.  Now, let us add some code to the file we just created.</p>
+
+<a href="openscad_models/hello.scad"><h5>hello.scad</h5></a>
+<pre><code class="hljs openscad"><span class="hljs-comment">// Comments are the same as C/C++.
+/*
+ * Multiline comments are also supported.
+ */
+</span>
+<span class="hljs-built_in">echo</span>("Hello World");</code></pre>
+
+<p>If you were able to set up our openscad alias mentioned in <a href="#/Programmers-install">Programmers Option</a>, you should be able to write the following in your terminal to see the results of the program.</p>
+
+<pre><code class="hljs bash"><span class="hljs-built_in">$ openscad</span> hello.scad</code></pre>
+
+<p>Note, the program above does not draw anything to the screen but instead demonstrates how to write to standard output.  You should see a line of text echoing "Hello World" in the console window of OpenSCAD.  Such a feature can be crucial while trying to debug a pesky bug in your models.</p>
+
+<a href="img/openscad-hello.png"><img ng-src="img/openscad-hello.png" id="centered"></a>
+
+<h3>Variables</h3>
+
+<p>OpenSCAD is a loosely typed language, variables are not assigned explicit types (think JavaScript).  Variable instantiation and assignment is very straightforward as shown below.  Arrays are handled using vectors, OpenSCAD offers multiple ways of defining vectors.  Vectors show many similarities to <a href="https://docs.racket-lang.org/reference/pairs.html">lists</a> commonly found in functional languages.</p>
+
+<a href="openscad_models/variables.scad"><h5>variables.scad</h5></a>
+<pre><code class="hljs openscad">my_number = <span class="hljs-number">58</span>;<span class="hljs-comment"> // Assigns an integer value to the variable with provided name.</span>
+<span class="hljs-built_in">echo</span>(<span class="hljs-string">"The value of my_number is: "</span>, my_number);
+
+my_string = <span class="hljs-string">"Hello World"</span>;<span class="hljs-comment"> // Assigns a string value to the variable with provided name.</span>
+<span class="hljs-built_in">echo</span>(<span class="hljs-string">"The value of my_string is: "</span>, my_string);
+
+circumference = <span class="hljs-number">2*PI*5.2</span>;<span class="hljs-comment"> // PI is built into the language.</span>
+<span class="hljs-built_in">echo</span>(<span class="hljs-string">"The value of circumference is: "</span>, circumference);
+
+boolean = <span class="hljs-string">false</span>;<span class="hljs-comment"> // Boolean values, true or false.</span>
+<span class="hljs-built_in">echo</span>(<span class="hljs-string">"The value of boolean is: "</span>, boolean);
+
+vector = <span class="hljs-string">[1, 2, 3, 4, 5]</span>;<span class="hljs-comment"> // Elements of an vector (array) listed verbosely.</span>
+<span class="hljs-built_in">echo</span>(<span class="hljs-string">"The value of vector at position 0 is: "</span>, vector[0], <span class="hljs-string">" and position 3 is: "<span>, vector[3]);
+</code></pre>
+
+<p>Since OpenSCAD follows a functional programming paradigm, variables act similar to constant variables in languages like C.  Variables are set at compile-time and not at run-time, they should be considered immutable.</p>
+
+<div class="btn-group btn-group-justified" id="page-next">
+    <a href="#/getting_started" class="btn btn-default"><small><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></small> Getting Started</a>
+    <a class="btn btn-default">OpenSCAD Basics</a>
+    <a href="#/2d_models_in_openscad" class="btn btn-default">2D Models In OpenSCAD <small><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></a>
+</div>

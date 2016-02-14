@@ -1,0 +1,145 @@
+/* app css stylesheet */
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+    margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+    border-left-color: #fff;
+}
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
+}
+
+body {
+    padding-top: 20px;
+}
+
+#navbar-title {
+    color: #333;
+}
+
+#page-next {
+    margin-top: 40px;
+}
+
+#body-view {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+img#centered {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80%;
+ }
+
+ h1 {
+     margin-bottom: 20px;
+}
+
+a {
+    color: #0645ad;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/** Detail View **/
+img.phone {
+    float: left;
+    margin-right: 3em;
+    margin-bottom: 2em;
+    background-color: white;
+    padding: 2em;
+    height: 400px;
+    width: 400px;
+    display: none;
+}
+
+img.phone:first-child {
+    display: block;
+}
+
+ul.phone-thumbs {
+    margin: 0;
+    list-style: none;
+}
+
+ul.phone-thumbs li {
+    border: 1px solid black;
+    display: inline-block;
+    margin: 1em;
+    background-color: white;
+}
+
+ul.phone-thumbs img {
+    height: 100px;
+    width: 100px;
+    padding: 1em;
+}
+
+ul.phone-thumbs img:hover {
+    cursor: pointer;
+}
+
+ul.specs {
+    clear: both;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul.specs > li{
+    display: inline-block;
+    width: 200px;
+    vertical-align: top;
+}
+
+ul.specs > li > span{
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+ul.specs dt {
+    font-weight: bold;
+}

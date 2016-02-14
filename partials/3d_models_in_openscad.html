@@ -1,0 +1,102 @@
+<h1>3D Models In OpenSCAD</h1>
+
+<h3>The Building Blocks</h3>
+
+<p><a href="http://www.openscad.org">OpenSCAD</a> uses <a href="https://en.wikipedia.org/wiki/Constructive_solid_geometry">constructive solid geometry</a> (CSG) to build models from simple shapes.  Similar to a programming languages primitive types, primitive solids provided by OpenSCAD can be combined into complex shapes.  Let's go through some of the basic shapes that can be produced and the syntax involved.</p>
+
+<h3>The Cube</h3>
+
+<p>The first shape we are going to draw will be a cube.</p>
+
+<a href="openscad_models/cube.scad"><h5>cube.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The cube function draws a rectangular prism.
+ * Parameters:
+ *      size - vector specifying size of cube [x, y, z]
+ *      center - boolean specifying if the cube is centered on (0, 0, 0) or not
+ */</span>
+<span class="hljs-built_in">cube</span>(size = [<span class="hljs-number">5, 5, 10</span>], center = <span class="hljs-string">true</span>);</code></pre>
+
+<p>The output should look like this:</p>
+
+<a href="img/openscad-cube.png"><img ng-src="img/openscad-cube.png" id="centered"></a>
+
+<h3>The Sphere</h3>
+
+<p>Let's move on to the sphere.</p>
+
+<a href="openscad_models/sphere.scad"><h5>sphere.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The sphere function draws a sphere.
+ * Parameters:
+ *      r - specifies the radius of the sphere
+ *      d - can be used instead of the radius parameter
+ *      $fa - fragment angle in degrees
+ *      $fs - fragment size in mm
+ *      $fn - resolution of the object
+ */
+</span><span class="hljs-built_in">sphere</span>(r = <span class="hljs-number">5</span>, <span class="hljs-keyword">$fn</span> = <span class="hljs-number">100</span>);</code></pre>
+
+<p><b>$fa</b>, <b>$fs</b>, and <b>$fn</b>, are all special variables that are used to round features throughout your program.  <b>$fn</b> is a combination of the other two and can be used to increase the resolution or smoothness of a round primitive shape.  Higher resolutions can slow down the render time of more complex objects.</p>
+
+<a href="img/openscad-sphere.png"><img ng-src="img/openscad-sphere.png" id="centered"></a>
+
+<h3>The Cylinder</h3>
+
+<p>Cylinders in OpenSCAD can take on both the typical form of a cylinder as well as a cone.</p>
+
+<a href="openscad_models/cylinder.scad"><h5>cylinder.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The cylinder function draws both a cylinder and cones.
+ * Parameters:
+ *      h - the height of the cylinder or cone
+ *      r - radius of cylinder
+ *      r1 - radius of the bottom of the cone
+ *      r2 - radius of the top of the cone
+ *      d - diameter of the cylinder
+ *      d1 - diameter of the bottom of the cone
+ *      d2 - diameter of the top of the cone
+ *      center - boolean specifying if the cylinder is centered on (0, 0, 0) or not
+ *      $fa - fragment angle in degrees
+ *      $fs - fragment size in mm
+ *      $fn - resolution of the object
+ */</span>
+<span class="hljs-built_in">cylinder</span>(h = <span class="hljs-number">10</span>, r1 = <span class="hljs-number">2.5</span>, r2 = <span class="hljs-number">5</span>, center = <span class="hljs-string">true</span>, <span class="hljs-keyword">$fn</span> = <span class="hljs-number">100</span>);</code></pre>
+
+<p>The output should look like this:</p>
+
+<a href="img/openscad-cylinder.png"><img ng-src="img/openscad-cylinder.png" id="centered"></a>
+
+<h3>The Polyhedron</h3>
+
+<p>Polyhedron's in OpenSCAD can become a bit more confusing to code compared to the other primitives listed above.  Polyhedrons require very specific three dimensional points to be give as input parameters in order to draw the shape.  While this can be difficult to create as a programmer but it also allows more freedom to the user so they are not confined to very basic shapes.</p>
+
+<a href="openscad_models/polyhedron.scad"><h5>polyhedron.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The polyhedron function draws a polyhedron of your choice.
+ * Parameters:
+ *      points - vector of vectors representing the vertices of the object
+ *      faces - vector of vectors that tell OpenSCAD which points specified in the previous parameter are used to contain the face.
+ *      convexity - The convexity parameter specifies the maximum number of front sides (back sides) a ray intersecting the object might penetrate.
+ *                  This parameter is only needed for correctly displaying the object in OpenCSG preview mode and has no effect on the polyhedron rendering
+ */</span>
+<span class="hljs-built_in">polyhedron</span>(
+    points = [[<span class="hljs-number">10, 10, 0</span>], [<span class="hljs-number">10, -10, 0</span>], [<span class="hljs-number">-10, -10, 0</span>], [<span class="hljs-number">-10, 10, 0</span>], <span class="hljs-comment">// The four points at the base.</span>
+    [<span class="hljs-number">0, -5, 10</span>], [<span class="hljs-number"> 0, 5, 10</span>]], <span class="hljs-comment">// The four points at the peak.</span>
+    faces = [[<span class="hljs-number">0, 1, 4, 5</span>], [<span class="hljs-number">1, 2, 4, 5</span>], [<span class="hljs-number">2, 3, 4, 5</span>], [<span class="hljs-number">3, 0, 5, 4</span>], <span class="hljs-comment">// The sides connecting the base to the peak.</span>"
+    [<span class="hljs-number">0, 1, 2, 3</span>]] <span class="hljs-comment">// Square face closing the base.</span>
+    );</code></pre>
+
+<p>The output should look like this:</p>
+
+<a href="img/openscad-polyhedron.png"><img ng-src="img/openscad-polyhedron.png" id="centered"></a>
+
+<div class="btn-group btn-group-justified" id="page-next">
+    <a href="#/2d_models_in_openscad" class="btn btn-default"><small><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></small> 2D Models In OpenSCAD</a>
+    <a class="btn btn-default">3D Models In OpenSCAD</a>
+    <a href="#/importing_cad_drawings" class="btn btn-default">Importing CAD Drawings <small><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></a>
+</div>

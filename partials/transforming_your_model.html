@@ -1,0 +1,206 @@
+<h1>Transforming Your Model</h1>
+
+<p>Transformations techniques should be familiar for Computer Science students with previous experience in <a href="https://en.wikipedia.org/wiki/Computer_graphics">computer graphics</a> or <a href="https://en.wikipedia.org/wiki/Computer_vision">computer vision</a>.  <a href="http://www.openscad.org">OpenSCAD</a> uses transformation principles to move, scale, and rotate objects to their desired location.  Transformations can be used concurrently with some of the other OpenSCAD functions discussed previously.</p>
+
+<h3>Translate</h3>
+
+<p>Translate is OpenSCAD's move function.  It moves objects held within the function with respect to the Cartesian plane.</p>
+
+<a href="openscad_models/translate.scad"><h5>translate.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-built_in">text</span>(<span class="hljs-string">"Default Location"</span>);
+
+<span class="hljs-comment">/*
+ * The translate function moves the object in the x, y, and z coordinates.
+ * Parameters:
+ *      - translate takes a vector as an argument which decides how the object will be translated
+ */</span>
+<span class="hljs-built_in">translate</span>([<span class="hljs-number">0, 10, 0</span>])
+    <span class="built_in">text</span>(<span class="hljs-string">"Translated Location"</span>);</code></pre>
+
+<p>The result shows some text that has been translated to prevent the two text objects from overlapping one another.</p>
+
+<a href="img/openscad-translate.png"><img ng-src="img/openscad-translate.png" id="centered"></a>
+
+<h3>Scale And Resize</h3>
+
+<p>For changing an object size, OpenSCAD offers two flavours which can be used.  Scale uses ratios to determine the size of the scaled object.  Resize on the other hand, uses a more direct numerical value to increase or decrease the size of the object.</p>
+
+<a href="openscad_models/resize_and_scale.scad"><h5>resize_and_scale.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * Both the scale and resize functions alter the size of the object in up to three dimensions.
+ * Scale Parameters:
+ *      - scale has a vector as input which represents a multiplicative approach to scaling the object
+ *
+ * Resize Parameters:
+ *      - resize has a vector as input which represents an exact numerical size for the object to be converted to
+ */</span>
+
+original_cube = [<span class="hljs-number">5, 5, 5</span>]; <span class="hljs-comment">// Our reference cube dimensions.</span>
+
+<span class="hljs-built_in">cube</span>(original_cube); <span class="hljs-comment">// Our reference cube.</span>
+
+<span class="hljs-comment">// '{' defines the scope of translate.</span>
+<span class="hljs-built_in">translate</span>([<span class="hljs-number">10, 0, 0</span>]) {
+    <span class="hljs-built_in">scale</span>([<span class="hljs-number">2, 2, 2</span>]) <span class="hljs-comment">// Doubles the cube's size in all direction.</span>
+        <span class="hljs-built_in">cube</span>(original_cube);
+}
+
+<span class="hljs-built_in">translate</span>([<span class="hljs-number">25, 0, 0</span>]) {
+    <span class="hljs-built_in">resize</span>([<span class="hljs-number">10, 10, 10</span>]) <span class="hljs-comment">// Exact dimensions to resize our cube.</span>
+        <span class="hljs-built_in">cube</span>(original_cube);
+}</code></pre>
+
+<p>The previous code outputs the following cubes with differing methods for sizing that return the same result.  The output should look like the following:</p>
+
+<a href="img/openscad-resize_and_scale.png"><img ng-src="img/openscad-resize_and_scale.png" id="centered"></a>
+
+<h3>Rotate</h3>
+
+<p>Unsurprisingly, rotate revolves the object around an axis as specified by the programmer.</p>
+
+<a href="openscad_models/rotate.scad"><h5>rotate.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The rotate function revolves the object around the specified axis.
+ * Parameters:
+ *      - rotate expects a vector for which the object will be rotated about
+ *      - vector numbers represent degrees
+ */</span>
+<span class="hljs-built_in">rotate</span>([<span class="hljs-number">0, 45, 0</span>]) <span class="hljs-comment">// Rotate 45 degrees about the positive y axis wrt. the right hand rule.</span>
+    <span class="hljs-built_in">cube</span>([<span class="hljs-number">5, 5, 5</span>], center = <span class="hljs-string">true</span>);</code></pre>
+
+<p>With the rotation complete, our cube is now a diamond.</p>
+
+<a href="img/openscad-rotate.png"><img ng-src="img/openscad-rotate.png" id="centered"></a>
+
+<h1>Mirror</h1>
+
+<p>Mirroring an object can be very useful when trying to make your models symmetrical.</p>
+
+<a href="openscad_models/mirror.scad"><h5>mirror.scad</h5></a>
+
+<pre><code class="hljs openscad">original_box = [<span class="hljs-number">1, 5, 10</span>]; <span class="hljs-comment">// Original object dimensions.</span>
+rotation_angle = [<span class="hljs-number">0, 45, 0</span>]; <span class="hljs-comment">// Original object rotation.</span>
+
+<span class="hljs-comment">// Original object.</span>
+<span class="hljs-built_in">rotate</span>(rotation_angle)
+    <span class="hljs-built_in">cube</span>(original_box);
+
+<span class="hljs-comment">/*
+ * The mirror functions creates a reflection of the object across the given x, y, z plane.
+ * Parameters:
+ *      - mirror takes a vector as a parameter that is orthogonal to the plane for which the object is mirrored
+ */</span>
+<span class="hljs-built_in">mirror</span>([<span class="hljs-number">1, 0, 0</span>]) {
+    <span class="hljs-built_in">rotate</span>(rotation_angle)
+        <span class="hljs-built_in">cube</span>(original_box);
+}</code></pre>
+
+<p>The mirrored object creates a <i>V</i> as follows:</p>
+
+<a href="img/openscad-mirror.png"><img ng-src="img/openscad-mirror.png" id="centered"></a>
+
+<h1>Offset</h1>
+
+<p>Offset can be used to adjust the outside vertices of your model.</p>
+
+<a href="openscad_models/offset.scad"><h5>offset.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The offset function offsets each surrounding vertices of your model.
+ * Parameters:
+ *      r - numerical value to decide offset distance and round corners
+ *      delta - numerical value to decide offset distance and sharp corners
+ *      chamfer - boolean to decide if the edges will be chamfered or not
+ */</span>
+
+original_polygon = [[<span class="hljs-number">0, 0</span>], [<span class="hljs-number">10, 0</span>], [<span class="hljs-number">10, 10</span>], [<span class="hljs-number">5, 5</span>], [<span class="hljs-number">0, 10</span>]]; <span class="hljs-comment">// Vertices for our polygon.</span>
+
+<span class="hljs-built_in">polygon</span>(original_polygon); <span class="hljs-comment">// Draws the original polygon.</span>
+
+<span class="hljs-built_in">translate</span>([<span class="hljs-number">15, 0, 0</span>]) {
+    <span class="hljs-built_in">offset</span>(r = <span class="hljs-number">1</span>, <span class="hljs-keyword">$fn</span> = <span class="hljs-number">100</span>) <span class="hljs-comment">// Round corners, $fn sets our rounding resolution.</span>
+        <span class="hljs-built_in">polygon</span>(original_polygon);
+}
+
+<span class="hljs-built_in">translate</span>([<span class="hljs-number">30, 0, 0</span>]) {
+    <span class="hljs-built_in">offset</span>(delta = <span class="hljs-number">-1</span>) <span class="hljs-comment">// Sharp corners offset 1 unit smaller than original_polygon.</span>
+        <span class="hljs-built_in">polygon</span>(original_polygon);
+}
+
+<span class="hljs-built_in">translate</span>([<span class="hljs-number">45, 0, 0</span>]) {
+    <span class="hljs-built_in">offset</span>(delta = <span class="hljs-number">1</span>, chamfer = <span class="hljs-string">true</span>) <span class="hljs-comment">// Sharp corners with a chamfer.</span>
+        polygon(original_polygon);
+}</code></pre>
+
+<p>Four shapes are produced by this code.  All the shapes use the same polygon buy have been offset if either rounded, sharp, or chamfered corners.  The result of this code should look something like this:</p>
+
+<a href="img/openscad-offset.png"><img ng-src="img/openscad-offset.png" id="centered"></a>
+
+<h1>Minkowski</h1>
+
+<p>This function is slightly difficult to get your head around but extremely useful once you do.  Both the Minkowski function and hull (discussed next) are similar functions that can combine object in very useful ways.  A note about this function, sizes can be changed depending on the shapes combines.  Always make sure the object you are trying to create keeps its proper dimensions.</p>
+
+<a href="openscad_models/minkowski.scad"><h5>minkowski.scad</h5></a>
+
+<pre><code class="hljs openscad">original_cube = [<span class="hljs-number">10, 10, 10</span>]; <span class="hljs-comment">// Cube dimensions.</span>
+
+<span class="hljs-comment">// Cylinder dimensions.</span>
+original_cylinder_radius = <span class="hljs-number">2</span>;
+original_cylinder_height = <span class="hljs-number">1</span>;
+
+<span class="hljs-built_in">cube</span>(original_cube);
+    <span class="hljs-built_in">rotate</span>([<span class="hljs-number">90, 0, 0</span>])
+        <span class="hljs-built_in">cylinder</span>(original_cylinder_radius, original_cylinder_height, <span class="hljs-keyword">$fn</span> = <span class="hljs-number">100</span>);
+
+<span class="hljs-comment">/*
+ * The Minkowski function merges object together to form a single shape.
+ */</span>
+<span class="hljs-built_in">translate</span>([<span class="hljs-number">15, 0, 0</span>]) {
+    <span class="hljs-built_in">minkowski</span>() {
+        <span class="hljs-built_in">cube</span>(original_cube);
+        <span class="hljs-built_in">rotate</span>([<span class="hljs-number">90, 0, 0</span>])
+            <span class="hljs-built_in">cylinder</span>(original_cylinder_radius, original_cylinder_height, <span class="hljs-keyword">$fn</span> = <span class="hljs-number">100</span>);
+    }
+}</code></pre>
+
+<p>Below is the result of the previous code.  Take note of how Minkowski alters the size of the objects being combines.</p>
+
+<a href="img/openscad-minkowski.png"><img ng-src="img/openscad-minkowski.png" id="centered"></a>
+
+<h1>Hull</h1>
+
+<p>Like Minkowski, the hull function combines shapes or objects into a single unit.  Instead of wrapping one object around another, hull connects the difference between the two.  You will notice when you run this code that the object takes a much longer time to render than the previous examples.  The resolution setting combined with the complexity of the hull function can cause OpenSCAD to run slower depending on your computer's capabilities.</p>
+
+<a href="openscad_models/hull.scad"><h5>hull.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-keyword">$fn</span> = <span class="hljs-number">75</span>; <span class="hljs-comment">// Resolution of our spheres.</span>
+
+radius = <span class="hljs-number">5</span>;
+
+<span class="hljs-built_in">translate</span>([<span class="hljs-number">15, 0, 0</span>])
+    <span class="hljs-built_in">sphere</span>(radius);
+<span class="hljs-built_in">sphere</span>(radius);
+
+<span class="hljs-comment">/*
+ * The hull function merges two object together.
+ */</span>
+<span class="hljs-built_in">hull</span>() {
+    <span class="hljs-built_in">translate</span>([<span class="hljs-number">0, 15, 0</span>]) {
+        <span class="hljs-built_in">translate</span>([<span class="hljs-number">15, 0, 0</span>])
+            <span class="hljs-built_in">sphere</span>(radius);
+        <span class="hljs-built_in">sphere</span>(radius);
+    }
+}</code></pre>
+
+<p>Connecting the spheres to make a pill like object.</p>
+
+<a href="img/openscad-hull.png"><img ng-src="img/openscad-hull.png" id="centered"></a>
+
+<div class="btn-group btn-group-justified" id="page-next">
+    <a href="#/manipulating_your_model" class="btn btn-default"><small><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></small> Manipulating Your Model</a>
+    <a class="btn btn-default">Transforming Your Model</a>
+    <a href="#/combining_objects" class="btn btn-default">Combining Objects <small><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></a>
+</div>
