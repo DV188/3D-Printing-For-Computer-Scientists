@@ -1,1 +1,103 @@
 <h1>Stereolithography</h1>
+
+<h3>File Format</h3>
+
+<p>Stereolithography has two different meanings the in 3D printing world.  <a href="https://en.wikipedia.org/wiki/Stereolithography">Stereolithography</a> can refer to a specific type of 3D printer that uses lasers to cure a pool of resin into the desired three dimensional model.  The second interpretation of the word refers to the <a href="https://en.wikipedia.org/wiki/STL_(file_format)"><i>.stl</i></a> file type which most 3D printers use to save a three dimensional model.</p>
+
+<p>Here, we will be discussing the file format stereolithography, <i>.stl</i>.  The majority of consumer 3D printing technologies on the market today use the <i>.stl</i> file format as the default format to save a three dimensional model.  This file format is used in most <a href="https://en.wikipedia.org/wiki/Computer-aided_design">CAD</a> software packages as well as many <a href="https://en.wikipedia.org/wiki/3DSlicer">slicers</a> needed to create the printer recognizable <a href="https://en.wikipedia.org/wiki/G-code">g-code</a>.  Stereolithography files construct a triangulated surface representing your created model in three dimensions.  We will discuss two different versions of an <i>.stl</i> below.</p>
+
+<p>Although 3D printing software handles nearly all processing of an <i>.stl</i> file, a closer look into the workings of this format will help broaden our understanding of how our models are created.</p>
+
+<h3>ASCII STL</h3>
+
+        <p><a href="http://people.sc.fsu.edu/~jburkardt/data/stla/stla.html">ASCII</a> <i>.stl</i>'s are a special kind of STL file format that can be digested as a human readable <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a> character language.  STLA files begin with and end with the <i>solid</i> keyword and <i>endsolid</i> keyword.  The file then contains instructions pertaining to the creation of triangles in a counterclockwise order.  The <i>facet normal</i> keyword describes the normal vector for which the triangle face will be oriented towards.  This normal vector is represented as a unit vector and follows the right hand rule.  Next, and <i>outer loop</i> and <i>endloop</i> keyword is used to begin the connection of the triangle vertices.  The <i>vertex</i> keyword will then specify the points.</p>
+
+    <p>See the example snippet below for a demonstration on how a cube will be build.  Refer to the <a href="#/3d_models_in_openscad">cube.scad</a> file for a comparison of how <a href="http://www.openscad.org">OpenSCAD</a> abstracts the details of STL creation.</p>
+
+
+<pre><code class="hljs openscad"><span class="hljs-built_in">solid</span> Cube
+    facet normal -0 0 1
+        outer loop
+            vertex -2.5 2.5 5
+            vertex 2.5 -2.5 5
+            vertex 2.5 2.5 5
+        endloop
+    endfacet
+    facet normal 0 0 1
+        outer loop
+            vertex 2.5 -2.5 5
+            vertex -2.5 2.5 5
+            vertex -2.5 -2.5 5
+        endloop
+    endfacet
+    facet normal 0 0 -1
+        outer loop
+            vertex -2.5 -2.5 0
+            vertex 2.5 2.5 0
+            vertex 2.5 -2.5 0
+        endloop
+    endfacet
+    facet normal -0 0 -1
+        outer loop
+            vertex 2.5 2.5 0
+            vertex -2.5 -2.5 0
+            vertex -2.5 2.5 0
+        endloop
+    endfacet
+    facet normal 0 -1 0
+        outer loop
+            vertex -2.5 -2.5 0
+            vertex 2.5 -2.5 5
+            vertex -2.5 -2.5 5
+        endloop
+    endfacet
+    facet normal 0 -1 -0
+        outer loop
+            vertex 2.5 -2.5 5
+            vertex -2.5 -2.5 0
+            vertex 2.5 -2.5 0
+        endloop
+    endfacet
+    facet normal 1 -0 0
+        outer loop
+            vertex 2.5 -2.5 5
+            vertex 2.5 2.5 0
+            vertex 2.5 2.5 5
+        endloop
+    endfacet
+    facet normal 1 0 0
+        outer loop
+            vertex 2.5 2.5 0
+            vertex 2.5 -2.5 5
+            vertex 2.5 -2.5 0
+        endloop
+    endfacet
+    facet normal 0 1 -0
+        outer loop
+            vertex 2.5 2.5 0
+            vertex -2.5 2.5 5
+            vertex 2.5 2.5 5
+        endloop
+    endfacet
+    facet normal 0 1 0
+        outer loop
+            vertex -2.5 2.5 5
+            vertex 2.5 2.5 0
+            vertex -2.5 2.5 0
+        endloop
+    endfacet
+    facet normal -1 0 0
+        outer loop
+            vertex -2.5 -2.5 0
+            vertex -2.5 2.5 5
+            vertex -2.5 2.5 0
+        endloop
+    endfacet
+    facet normal -1 -0 0
+        outer loop
+            vertex -2.5 2.5 5
+            vertex -2.5 -2.5 0
+            vertex -2.5 -2.5 5
+        endloop
+    endfacet
+endsolid Cube</code></pre>
