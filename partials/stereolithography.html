@@ -10,94 +10,109 @@
 
 <h3>ASCII STL</h3>
 
-        <p><a href="http://people.sc.fsu.edu/~jburkardt/data/stla/stla.html">ASCII</a> <i>.stl</i>'s are a special kind of STL file format that can be digested as a human readable <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a> character language.  STLA files begin with and end with the <i>solid</i> keyword and <i>endsolid</i> keyword.  The file then contains instructions pertaining to the creation of triangles in a counterclockwise order.  The <i>facet normal</i> keyword describes the normal vector for which the triangle face will be oriented towards.  This normal vector is represented as a unit vector and follows the right hand rule.  Next, and <i>outer loop</i> and <i>endloop</i> keyword is used to begin the connection of the triangle vertices.  The <i>vertex</i> keyword will then specify the points.</p>
+<p><a href="http://people.sc.fsu.edu/~jburkardt/data/stla/stla.html">ASCII</a> <i>.stl</i>'s are a special kind of STL file format that can be digested as a human readable <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a> character language.  STLA files begin with and end with the <i>solid</i> keyword and <i>endsolid</i> keyword.  The file then contains instructions pertaining to the creation of triangles in a counterclockwise order.  The <i>facet normal</i> keyword describes the normal vector for which the triangle face will be oriented towards.  This normal vector is represented as a unit vector and follows the right hand rule.  Next, and <i>outer loop</i> and <i>endloop</i> keyword is used to begin the connection of the triangle vertices.  The <i>vertex</i> keyword will then specify the points.</p>
 
-    <p>See the example snippet below for a demonstration on how a cube will be build.  Refer to the <a href="#/3d_models_in_openscad">cube.scad</a> file for a comparison of how <a href="http://www.openscad.org">OpenSCAD</a> abstracts the details of STL creation.</p>
+<p>See the example snippet below for a demonstration on how a cube will be build.  Refer to the <a href="#/3d_models_in_openscad">cube.scad</a> file for a comparison of how <a href="http://www.openscad.org">OpenSCAD</a> abstracts the details of STL creation.</p>
 
+<a href="openscad_models/cube.stl"><h5>cube.stl</h5></a>
 
 <pre><code class="hljs openscad"><span class="hljs-built_in">solid</span> Cube
-    facet normal -0 0 1
-        outer loop
-            vertex -2.5 2.5 5
-            vertex 2.5 -2.5 5
-            vertex 2.5 2.5 5
-        endloop
-    endfacet
-    facet normal 0 0 1
-        outer loop
-            vertex 2.5 -2.5 5
-            vertex -2.5 2.5 5
-            vertex -2.5 -2.5 5
-        endloop
-    endfacet
-    facet normal 0 0 -1
-        outer loop
-            vertex -2.5 -2.5 0
-            vertex 2.5 2.5 0
-            vertex 2.5 -2.5 0
-        endloop
-    endfacet
-    facet normal -0 0 -1
-        outer loop
-            vertex 2.5 2.5 0
-            vertex -2.5 -2.5 0
-            vertex -2.5 2.5 0
-        endloop
-    endfacet
-    facet normal 0 -1 0
-        outer loop
-            vertex -2.5 -2.5 0
-            vertex 2.5 -2.5 5
-            vertex -2.5 -2.5 5
-        endloop
-    endfacet
-    facet normal 0 -1 -0
-        outer loop
-            vertex 2.5 -2.5 5
-            vertex -2.5 -2.5 0
-            vertex 2.5 -2.5 0
-        endloop
-    endfacet
-    facet normal 1 -0 0
-        outer loop
-            vertex 2.5 -2.5 5
-            vertex 2.5 2.5 0
-            vertex 2.5 2.5 5
-        endloop
-    endfacet
-    facet normal 1 0 0
-        outer loop
-            vertex 2.5 2.5 0
-            vertex 2.5 -2.5 5
-            vertex 2.5 -2.5 0
-        endloop
-    endfacet
-    facet normal 0 1 -0
-        outer loop
-            vertex 2.5 2.5 0
-            vertex -2.5 2.5 5
-            vertex 2.5 2.5 5
-        endloop
-    endfacet
-    facet normal 0 1 0
-        outer loop
-            vertex -2.5 2.5 5
-            vertex 2.5 2.5 0
-            vertex -2.5 2.5 0
-        endloop
-    endfacet
-    facet normal -1 0 0
-        outer loop
-            vertex -2.5 -2.5 0
-            vertex -2.5 2.5 5
-            vertex -2.5 2.5 0
-        endloop
-    endfacet
-    facet normal -1 -0 0
-        outer loop
-            vertex -2.5 2.5 5
-            vertex -2.5 -2.5 0
-            vertex -2.5 -2.5 5
-        endloop
-    endfacet
-endsolid Cube</code></pre>
+    <span class="hljs-built_in">facet normal</span> <span class="hljs-number">-0 0 1</span>
+        <span class="hljs-built_in">outer loop</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">-2.5 2.5 5</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">2.5 -2.5 5</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">2.5 2.5 5</span>
+        <span class="hljs-built_in">endloop</span>
+    <span class="hljs-built_in">endfacet</span>
+    <span class="hljs-built_in">facet normal</span> <span class="hljs-number">0 0 1</span>
+        <span class="hljs-built_in">outer loop</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">2.5 -2.5 5</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">-2.5 2.5 5</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">-2.5 -2.5 5</span>
+        <span class="hljs-built_in">endloop</span>
+    <span class="hljs-built_in">endfacet</span>
+    <span class="hljs-built_in">facet normal</span> <span class="hljs-number">0 0 -1</span>
+        <span class="hljs-built_in">outer loop</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">-2.5 -2.5 0</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">2.5 2.5 0</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">2.5 -2.5 0</span>
+        <span class="hljs-built_in">endloop</span>
+    <span class="hljs-built_in">endfacet</span>
+    <span class="hljs-built_in">facet normal</span> <span class="hljs-number">-0 0 -1</span>
+        <span class="hljs-built_in">outer loop</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">2.5 2.5 0</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">-2.5 -2.5 0</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">-2.5 2.5 0</span>
+        <span class="hljs-built_in">endloop</span>
+    <span class="hljs-built_in">endfacet</span>
+    <span class="hljs-built_in">facet normal</span> <span class="hljs-number">0 -1 0</span>
+        <span class="hljs-built_in">outer loop</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">-2.5 -2.5 0</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">2.5 -2.5 5</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">-2.5 -2.5 5</span>
+        <span class="hljs-built_in">endloop</span>
+    <span class="hljs-built_in">endfacet</span>
+    <span class="hljs-built_in">facet normal</span> <span class="hljs-number">0 -1 -0</span>
+        <span class="hljs-built_in">outer loop</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">2.5 -2.5 5</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">-2.5 -2.5 0</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">2.5 -2.5 0</span>
+        <span class="hljs-built_in">endloop</span>
+    <span class="hljs-built_in">endfacet</span>
+    <span class="hljs-built_in">facet normal</span> <span class="hljs-number">1 -0 0</span>
+        <span class="hljs-built_in">outer loop</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">2.5 -2.5 5</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">2.5 2.5 0</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">2.5 2.5 5</span>
+        <span class="hljs-built_in">endloop</span>
+    <span class="hljs-built_in">endfacet</span>
+    <span class="hljs-built_in">facet normal</span> <span class="hljs-number">1 0 0</span>
+        <span class="hljs-built_in">outer loop</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">2.5 2.5 0</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">2.5 -2.5 5</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">2.5 -2.5 0</span>
+        <span class="hljs-built_in">endloop</span>
+    <span class="hljs-built_in">endfacet</span>
+    <span class="hljs-built_in">facet normal</span> <span class="hljs-number">0 1 -0</span>
+        <span class="hljs-built_in">outer loop</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">2.5 2.5 0</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">-2.5 2.5 5</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">2.5 2.5 5</span>
+        <span class="hljs-built_in">endloop</span>
+    <span class="hljs-built_in">endfacet</span>
+    <span class="hljs-built_in">facet normal</span> <span class="hljs-number">0 1 0</span>
+        <span class="hljs-built_in">outer loop</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">-2.5 2.5 5</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">2.5 2.5 0</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">-2.5 2.5 0</span>
+        <span class="hljs-built_in">endloop</span>
+    <span class="hljs-built_in">endfacet</span>
+    <span class="hljs-built_in">facet normal</span> <span class="hljs-number">-1 0 0</span>
+        <span class="hljs-built_in">outer loop</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">-2.5 -2.5 0</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">-2.5 2.5 5</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">-2.5 2.5 0</span>
+        <span class="hljs-built_in">endloop</span>
+    <span class="hljs-built_in">endfacet</span>
+    <span class="hljs-built_in">facet normal</span> <span class="hljs-number">-1 -0 0</span>
+        <span class="hljs-built_in">outer loop</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">-2.5 2.5 5</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">-2.5 -2.5 0</span>
+            <span class="hljs-built_in">vertex</span> <span class="hljs-number">-2.5 -2.5 5</span>
+        <span class="hljs-built_in">endloop</span>
+    <span class="hljs-built_in">endfacet</span>
+<span class="hljs-built_in">endsolid</span> Cube</code></pre>
+
+<p>To view the our newly created <i>.stl</i>, we can use the import function provided by OpenSCAD to import our model.</p>
+
+<a href="openscad_models/import_stl.scad"><h5>import_stl.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The import function is used to import .stl file typically created with CAD software.
+ */</span>
+<span class="hljs-built_in">import</span>(<span class="hljs-string">"/path/to/file.stl"</span>);
+</pre></code>
+
+<p>A basic cube should be created as such:</p>
+
+<a href="img/openscad-import_stl.png"><img ng-src="img/openscad-import_stl.png" id="centered"></a>

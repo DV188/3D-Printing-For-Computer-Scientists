@@ -33,6 +33,18 @@
 
 <p>You have now created both a project file, <i>.scad</i>, and a file ready to be converted into G-code, <i>.stl</i>.</p>
 
+<h3>Import .stl Files</h3>
+
+<p>Once you have created your <i>.stl</i> file, there are many different software packages that will allow you to view the STL such as Cura or Repetier.  But, OpenSCAD does offer the import function that imports an <i>.stl</i> to be viewed from within the program.</p>
+
+<a href="openscad_models/import_stl.scad"><h5>import_stl.scad</h5></a>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * The import function is used to import .stl file typically created with CAD software.
+ */</span>
+<span class="hljs-built_in">import</span>(<span class="hljs-string">"/path/to/file.stl"</span>);
+</pre></code>
+
 <div class="btn-group btn-group-justified" id="page-next">
     <a href="#/debugging" class="btn btn-default"><small><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></small> Debugging</a>
     <a class="btn btn-default">External Files</a>
