@@ -118,3 +118,34 @@
 <a href="img/openscad-import_stl.png"><img ng-src="img/openscad-import_stl.png" id="centered"></a>
 
 <p>The creation of STL files is fairly intuitive.  Programs can be created to churn out a large number of facets to create three dimensional object files.  Notice these files contain no information regarding the models colour or the any scaling variables.</p>
+
+<p>The simplicity of an <i>.stl</i> does not allow for much modification.  In order to modify a model it's best to return to the original CAD drawing and export a new <i>.stl</i> file.</p>
+
+<h3>Binary STL</h3>
+
+<p>As models get more complex and increasing amounts of facets are created, ASCII <i>.stl</i>'s grow rather large in size.  Binary <i>.stl</i>'s convert the text of an ASCII <i>.stl</i> to a much more manageable binary format.  <a href="http://www.fabbers.com/tech/STL_Format#Sct_binary">Binary <i>.stl</i>'s</a> begin with an 80 character header description with no significance to the data.  Following, a 4 byte unsigned integer is placed that provides the number of facets in the file.  At this point, 4 byte floats representing the <i>.stl</i> facet dimensions is listed.</p>
+
+
+<pre><code class="hljs openscad"><span class="hljs-number">4</span> <span class="hljs-built_in">float</span>                <span class="hljs-comment"><i>i</i> for normal</span>
+<span class="hljs-number">4</span> <span class="hljs-built_in">float</span>                <span class="hljs-comment"><i>j</i></span>
+<span class="hljs-number">4</span> <span class="hljs-built_in">float</span>                <span class="hljs-comment"><i>k</i></span>
+
+<span class="hljs-number">4</span> <span class="hljs-built_in">float</span>                <span class="hljs-comment"><i>x</i> for vertex 1</span>
+<span class="hljs-number">4</span> <span class="hljs-built_in">float</span>                <span class="hljs-comment"><i>y</i></span>
+<span class="hljs-number">4</span> <span class="hljs-built_in">float</span>                <span class="hljs-comment"><i>z</i></span>
+
+<span class="hljs-number">4</span> <span class="hljs-built_in">float</span>                <span class="hljs-comment"><i>x</i> for vertex 2</span>
+<span class="hljs-number">4</span> <span class="hljs-built_in">float</span>                <span class="hljs-comment"><i>y</i></span>
+<span class="hljs-number">4</span> <span class="hljs-built_in">float</span>                <span class="hljs-comment"><i>z</i></span>
+
+<span class="hljs-number">4</span> <span class="hljs-built_in">float</span>                <span class="hljs-comment"><i>x</i> for vertex 3</span>
+<span class="hljs-number">4</span> <span class="hljs-built_in">float</span>                <span class="hljs-comment"><i>y</i></span>
+<span class="hljs-number">4</span> <span class="hljs-built_in">float</span>                <span class="hljs-comment"><i>z</i></span>
+
+<span class="hljs-number">2</span> <span class="hljs-built_in">unsigned integer</span>     <span class="hljs-comment">attribute byte count</span></code></pre>
+
+<div class="btn-group btn-group-justified" id="page-next">
+    <a href="#/external_files" class="btn btn-default"><small><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></small> External Files</a>
+    <a class="btn btn-default">Stereolithography</a>
+    <a href="#/slicer" class="btn btn-default">Slicer <small><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></a>
+</div>
