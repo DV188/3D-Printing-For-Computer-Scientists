@@ -43,6 +43,8 @@ honoursApp.config(['$routeProvider', function($routeProvider) {
         templateUrl: 'partials/stereolithography/stereolithography.html'
     }).when('/slicer', {
         templateUrl: 'partials/slicer/slicer.html'
+    }).when('/slicer_print_settings', {
+        templateUrl: 'partials/slicer/slicer_print_settings.html'
     }).otherwise({
         redirectTo: '/introduction'
     });

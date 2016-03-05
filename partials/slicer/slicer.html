@@ -11,3 +11,27 @@
 <a href="img/slicer/slicer-start_up.png"><img ng-src="img/slicer/slicer-start_up.png" id="centered"></a>
 
 <p>When you open Repetier-Host and open it on your machine for the first time, you should see a screen similar to the image above.  Towards the left side of the application is the viewing window.  Unlike OpenSCAD, The viewing window does not show a traditional Cartesian coordinate but instead it's meant to represent the build area of the printer you have selected in your settings.  The right hand side of the screen has some options for positioning, rotating, and scaling, your object.  This allows for further manipulation of you CAD three dimensional model with respect to your printer.  It also allows for multiple models to be printed and positioned simultaneously.  Towards the bottom, a console output window is available which will become especially useful for troubleshooting physical printing problems.</p>
+
+<h3>Printer Setup</h3>
+
+<p>Before we can calibrate the slicer, we must inform Repetier-Host of our printer properties before we can make any 3D prints.  Navigating to <i>Printer &gt Printer Settings</i>, a pop up window with printer settings will appear.</p>
+
+<a href="img/slicer/slicer-printer_settings.png"><img ng-src="img/slicer/slicer-printer_settings.png" id="centered"></a>
+
+<p><a href="http://reprap.org/">RepRap</a> printers will typically have documentation that details these settings for the printer you may be using.  It is important to use the recommended settings as a base point and dial in the setting from there.  The printer settings range from extruder temperatures to bed size and feed rate.  All the parameters should be filled out before further calibration is completed.</p>
+
+<h3>Slicer Calibration</h3>
+
+<p>The slicer is responsible for most of the software calibration required to 3D print your models created by CAD software.  The slicer's role in print quality is as important as the physical printer itself most of the time.  Repetier-Host comes prepackaged with the Slic3r three dimensional slicing engine.  Selecting the Slicer tab in the rightmost menu, you can see some settings for different slicers, print settings, and extruder settings.</p>
+
+<a href="img/slicer/slicer-slicer_tab.png"><img ng-src="img/slicer/slicer-slicer_tab.png" id="centered"></a>
+
+<p>Selecting the configure button will open up the Slic3r interface to adjust you slicing settings.  A large number of options and settings are available through the Slic3r interface.  Slic3r does a very good job at detailing what each of these settings do.  Simply hover your mouse over various options to see a quick description of that option.</p>
+
+<a href="img/slicer/slicer-slicer_print_settings.png"><img ng-src="img/slicer/slicer-slicer_print_settings.png" id="centered"></a>
+
+<div class="btn-group btn-group-justified" id="page-next">
+    <a href="#/stereolithography" class="btn btn-default"><small><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></small> Stereolithography</a>
+    <a class="btn btn-default">Slicer</a>
+    <a href="#/slicer_print_settings" class="btn btn-default">Slicer Print Settings <small><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></a>
+</div>

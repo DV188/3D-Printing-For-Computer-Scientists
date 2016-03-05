@@ -1,0 +1,37 @@
+<h1>Slicer Print Settings</h1>
+
+<p>Discussions about Slic3r's print settings tab will be discussed below.  Many of the options are specific to your printer type, please refer to your manufacturers instructions for recommended settings pertaining to your printer.</p>
+
+<a href="img/slicer/slicer-slicer_print_settings.png"><img ng-src="img/slicer/slicer-slicer_print_settings.png" id="centered"></a>
+
+<h3>Layers And Perimeters</h3>
+
+<p>The first set of configuration options you should see when the Slic3r engine is fired up are the layers and perimeters options.</p>
+
+<a href="img/slicer/slicer-layer_height.png"><img ng-src="img/slicer/slicer-layer_height.png" id="centered"></a>
+
+<p></p> <!-- Space below image until next paragraph tag. -->
+
+<p>These options controls the vertical layering and the shell of the print.  To begin, the layer height section is mostly dependent on your printer.  The layer height determines how high the printer will move for each layer of melted plastic it puts down onto the bed.  Depending on your printers nozzle size and z-axis threaded rods, this value can change.  Changing this value will also slow down or speed up your prints as a smaller layer height is slower but allows for a higher amount of detail.  Making decisions on what layer height to print at is a big part of getting the desired print quality with the desired print speed.</p>
+
+<p>First layer height is the same as layer height but only applies to the very first layer of plastic extruded onto the 3D printer's build surface.  This option is typically a little smaller than the layer height to increase the chances of the first layer sticking to the build platform.  The first layer coming unstuck from the build platform is a common problem for most 3D printers and will cause prints to fail.</p>
+
+<a href="img/slicer/slicer-vertical_shells.png"><img ng-src="img/slicer/slicer-vertical_shells.png" id="centered"></a>
+
+<p></p> <!-- Space below image until next paragraph tag. -->
+
+<p>The vertical shells section adjusts how the print develops as it builds vertically.  Perimeters describes how many outer layers your model will have.  The layers are important for the structural properties of your print.  Since most three dimensional prints are hollow on the interior, the thickness of the perimeters can be the only option for strengthening the model.</p>
+
+<p>The randomize starting points is a feature often overlooked by people just beginning to 3D print.  As the printer moves up layer by layer, the printer starts said layer at the same point on the perimeter every time.  The result of starting at the same point is a line that forms all the way up your model.  If the randomize starting points option is turned on, the slicer will instead instruct the printer to start each layer at a different point.  This makes a single layer start line less noticeable but can create imperfections at the random points where the printer head restarts extruding plastic at each layer.</p>
+
+<p>Generate extra perimeters adds some perimeter layers to places where your model may have an overhang.  This adds some plastic for which newer layers can adhere to and will hopefully reinforce those tricky spots found throughout your model.</p>
+
+<a href="img/slicer/slicer-horizontal_shells.png"><img ng-src="img/slicer/slicer-horizontal_shells.png" id="centered"></a>
+
+<p></p> <!-- Space below image until next paragraph tag. -->
+
+<div class="btn-group btn-group-justified" id="page-next">
+    <a href="#/slicer" class="btn btn-default"><small><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></small> Slicer</a>
+    <a class="btn btn-default">Slicer Print Settings</a>
+    <a href="#/slicer_print_settings" class="btn btn-default">Slicer Print Settings <small><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></a>
+</div>
