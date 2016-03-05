@@ -40,7 +40,7 @@ honoursApp.config(['$routeProvider', function($routeProvider) {
     }).when('/external_files', {
         templateUrl: 'partials/openscad/external_files.html'
     }).when('/stereolithography', {
-        templateUrl: 'partials/openscad/stereolithography.html'
+        templateUrl: 'partials/stereolithography/stereolithography.html'
     }).when('/slicer', {
         templateUrl: 'partials/slicer/slicer.html'
     }).otherwise({
