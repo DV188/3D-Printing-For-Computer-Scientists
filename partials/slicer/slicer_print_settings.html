@@ -30,8 +30,56 @@
 
 <p></p> <!-- Space below image until next paragraph tag. -->
 
+<p>When producing horizontal layers for both the top and the bottoms of your three dimensional models, these settings can be adjusted much in the same way as the vertical shell.  Adding more layers to either the top or the bottom of your model will produces thicker horizontal layers.  Keep in mind this works along side the layer thickness and simply adds new layers at the specified layer thickness in order to strengthen the piece.</p>
+
+<a href="img/slicer/slicer-advanced.png"><img ng-src="img/slicer/slicer-advanced.png" id="centered"></a>
+
+<p></p> <!-- Space below image until next paragraph tag. -->
+
+<p>If your 3D prints are producing string that span across spaces in your print, one of the settings you may be interested in is the avoid crossing perimeters option.  With this option selected, the slicer will limit the number of times the print head moves across perimeters to reduce stringing.  The last option in the layers and perimeters sections simply reverses the direction for which outer layers are assembled.</p>
+
+<h3>Infill</h3>
+
+<p>Three dimensional models can be created by printing top, bottom, and perimeter layers.  But, if you want to create a more solid model, infill settings are the ones you want to fiddle with.</p>
+
+<a href="img/slicer/slicer-infill.png"><img ng-src="img/slicer/slicer-infill.png" id="centered"></a>
+
+<p>The infill density is a percentage value representing what percentage of infill you would like to be in your model.  The value 1 would create a solid plastic model.  It is recommended to experiment with smaller infill values, you will be surprised with how little infill you need in order to make your models strong.  Another option that can be adjusted depending on your preference is the fill pattern option.  Slic3r allows you to choose between several different infill patterns.  Infill patterns describe the pattern for which the infill plastic will be laid down.  Different infill patterns with change the structural stability of your prints as well as the amount of plastic each model takes to produce.</p>
+
+<p>As you move into the advanced options for Slic3r's infill settings, several options are available.  You are able to adjust which layers you would like infill placed.  Slic3r offers a toggle for needed infill.  This option is useful for adding infill under overhangs or bridges in your model in order to keep that layer from collapsing without support under it.</p>
+
+<h3>Speed</h3>
+
+<p>Speed settings are mostly determined by the type/manufacturer of the 3D printer you are using.</p>
+
+<a href="img/slicer/slicer-speed.png"><img ng-src="img/slicer/slicer-speed.png" id="centered"></a>
+
+<p>Slic3r allows the user to adjust almost every speed setting you can imagine.  Control over how faster the perimeters of the print are laid down or the infill inside the print itself.  These settings can be turned down or up depending on how the print quality effects your model.  Faster speeds often cause vibrations throughout your printer and amplify oversights that may have occurred during the build/design process.</p>
+
+<p>Aside from the print speed settings, you will also find speed settings for when the printer isn't actually laying down material.  Slic3r offers travel speed for when the extruder is not on.  Acceleration can be changed for more advanced users if you want to squeeze the most out of your printer.  These settings can be tweaked as you see fit but the default speeds set by your printer's manufacturer are usually well tested for balance between reliability and speed.</p>
+
+<h3>Skirt And Brim</h3>
+
+<p>Both a skirt and brim serve a similar purpose.  A skirt is when the printer draws a thin line surrounding the base of your model.  This line is there to make sure the filament is flowing properly when it goes to begin printing the model.  A brim is like a skirt but surrounds the model several times to really make sure the extruder is up to temperature and laying down material appropriately.</p>
+
+<a href="img/slicer/slicer-skirt_brim.png"><img ng-src="img/slicer/slicer-skirt_brim.png" id="centered"></a>
+
+<p>In this panel of Slic3r's settings, the amount of skirt loops can be adjusted.  The more skirt loops the higher chance that the filament will be extruding properly.  The distance from the object for which the skirt it produced can be changed as well.  If you choose to use a brim instead, the width for which the brim is created as can be adjusted.</p>
+
+<h3>Support Material</h3>
+
+<p>Support material is very important for prints with overhangs.  Printers use support material to hold up extruded plastic in midair in order to create overhangs or bridges in a model.  Without support material, the printer simply cannot print some overhangs.  The extent for which printers can print without support material can change depending on material and settings.</p>
+
+<a href="img/slicer/slicer-support_material.png"><img ng-src="img/slicer/slicer-support_material.png" id="centered"></a>
+
+<p>These Slic3r settings are very important for models where material needs to span across midair as opposed to another 3D printed layer.  Not all prints will require support material and more experience three dimensional modellers will manipulate their model orientation to limit features that would require it.  Support material can be useful when it's required by the model but it makes most prints more difficult to clean up afterward and uses excess material.  Slic3r will allow the user to determine at what angle to support material is generated.  Different printers will cause the filament to droop without support at differing angles.  The angle you printer can printer at can be tested using various printable tests.</p>
+
+<p>In this section you will also find an options for raft layers.  A raft is a layer of plastic for which the base of your print will sit on top of.  The idea behind a raft is it gives your first layer of your print a large area to stick to.  Rafts are designed to be removed easily afterward, as are all support material.</p>
+
+<p>Raft and support material patterns are similar to the infill patterns.  Different patterns will have different strengths and weaknesses and will be selected based on personal preference.</p>
+
 <div class="btn-group btn-group-justified" id="page-next">
     <a href="#/slicer" class="btn btn-default"><small><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></small> Slicer</a>
     <a class="btn btn-default">Slicer Print Settings</a>
-    <a href="#/slicer_print_settings" class="btn btn-default">Slicer Print Settings <small><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></a>
+    <a href="#/slicer_creating_gcode" class="btn btn-default">Creating G-code <small><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></a>
 </div>
