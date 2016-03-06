@@ -1,0 +1,25 @@
+<h1>Slicer Filament Settings</h1>
+
+<h3>Filament</h3>
+
+<p>Both the print settings and filament settings should be adjusted to work with one another.  Filament settings deal with the extruder itself while the print settings handles the Cartesian motion.</p>
+
+<a href="img/slicer/slicer-filament.png"><img ng-src="img/slicer/slicer-filament.png" id="centered"></a>
+
+<p>The diameter setting will be related to the type of printer you have and therefore the type of filament your printer needs to use.  Popular filament sizes include 3mm and 1.75mm.  The extrusion multiplier is a ratio for which the printer extrudes to the speed for which the printer moves.  Slight adjustments to this value might help you if you notice a little under or over extrusion in your prints and are happy with the rest of your settings.</p>
+
+<p>Both the bed and extruder temperatures are based on what material you are trying to print.  Make sure to check the manufacturers recommendations for baseline temperatures.</p>
+
+<h3>Cooling</h3>
+
+<p>It is very common for printers to install fans that directly blow on the extruder area.</p>
+
+<a href="img/slicer/slicer-cooling.png"><img ng-src="img/slicer/slicer-cooling.png" id="centered"></a>
+
+<p>If your printer has control over the extruder fan, adjustments for this fan can be made in this section of Slic3r.  Fan settings are designed to cool your model as it is extruded onto the build platform.  The plastic on previous layers should be solidified before building further layers.</p>
+
+<div class="btn-group btn-group-justified" id="page-next">
+    <a href="#/slicer_print_settings" class="btn btn-default"><small><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></small> Slicer Print Settings</a>
+    <a class="btn btn-default">Slicer Filament Settings</a>
+    <a href="#/slicer_printer_settings" class="btn btn-default">Slicer Printer Settings<small><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></a>
+</div>

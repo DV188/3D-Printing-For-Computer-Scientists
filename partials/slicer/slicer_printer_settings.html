@@ -1,0 +1,27 @@
+<h1>Slicer Printer Settings</h1>
+
+<h3>General</h3>
+
+<p>Much like the initial printer settings we set up in <a href="#/slicer">Repetier-Host</a>, Slic3r has its own printer settings that should, for the most part, mirror those previous.</p>
+
+<a href="img/slicer/slicer-slicer_printer_settings.png"><img ng-src="img/slicer/slicer-slicer_printer_settings.png" id="centered"></a>
+
+<p>The bed size of Slic3r can be made different from that of the bed size for your printer.  You are able to decrease the size of your printer bed if you do not want to print towards the extreme edges of your build platform.  Changing the z offset will adjust how close the extruder is to the build platform, important for having your first layer adhesion.</p>
+
+<p>Firmware will depend on the printer you are using.  Marlin is a very popular firmware that comes with most 3D printers, especially <a href="reprap.org">RepRap</a> printers.</p>
+
+<h3>Extruder</h3>
+
+<p>Each extruder can be adjusted with these advanced settings.</p>
+
+<a href="img/slicer/slicer-extruder.png"><img ng-src="img/slicer/slicer-extruder.png" id="centered"></a>
+
+<p>Nozzle diameter will be determines by the extruder you have on your given printer.  Offset parameters can be adjusted if the user sees fit.</p>
+
+<p>Retractions settings can be adjusted to reduce stringing and start layer imperfections.  As the print head lifts off from where it is printing, the printer will retract the filament slightly so it does not drag filament across your model.</p>
+
+<div class="btn-group btn-group-justified" id="page-next">
+    <a href="#/slicer_filament_settings" class="btn btn-default"><small><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></small> Slicer Filament Settings</a>
+    <a class="btn btn-default">Slicer Printer Settings</a>
+    <a href="#/slicer_creating_gcode" class="btn btn-default">Creating G-code <small><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></a>
+</div>

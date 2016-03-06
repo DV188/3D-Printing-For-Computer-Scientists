@@ -45,6 +45,10 @@ honoursApp.config(['$routeProvider', function($routeProvider) {
         templateUrl: 'partials/slicer/slicer.html'
     }).when('/slicer_print_settings', {
         templateUrl: 'partials/slicer/slicer_print_settings.html'
+    }).when('/slicer_filament_settings', {
+        templateUrl: 'partials/slicer/slicer_filament_settings.html'
+    }).when('/slicer_printer_settings', {
+        templateUrl: 'partials/slicer/slicer_printer_settings.html'
     }).when('/slicer_creating_gcode', {
         templateUrl: 'partials/slicer/slicer_creating_gcode.html'
     }).otherwise({
