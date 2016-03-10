@@ -1,0 +1,24 @@
+<h1>An Introduction To G-code</h1>
+
+<p>G-code is a very close to the metal programming language developed by <a href="http://web.mit.edu/">MIT</a> in the 1950's.  G-code provides computerized machines with instructions on how to build a product.  Whether the code be for a <a href="https://en.wikipedia.org/wiki/Numerical_control">CNC</a> cutting machine, a laser cutter, or a 3D printer, G-code is a popular choice.  The instructions included in a G-code file include positions where the machine will move, the speed at which it will move, and what path it will take in between.</p>
+
+<p>Once a three dimensional model is created using a piece of <a href="https://en.wikipedia.org/wiki/Computer-aided_design">CAD</a> software, the model is exported as an <i>.stl</i>.  The STL is then slicer using slicing software into G-code.</p>
+
+<h3>Homing You Printer</h3>
+
+<p><a href="http://gnipsel.com/linuxcnc/g-code/gen01.html">Homing</a> your printer to it's Cartesian origin  point, (0, 0, 0), is important to having a base case for which to start from.  G53 is a command for hardware homing your 3D printer.  This means the printer will go to its home determined by where the physical sensors are placed rather than a software limit.  Software home is also available with the G28 command and is more useful for a number of printer configurations.  These commands assume a point of (0, 0, 0) without further given parameters but you may also specify, G28 X0 Y0 Z0.  Additionally, G28 X Z will home the x-axis and z-axis but not the y-axis.</p>
+
+<h3>G-code Preamble</h3>
+
+<p>The beginning of a G-code file has some important configuration options to be inserted in order to let the rest of the script function.  This configuration includes information about the device running the G-code and units of measurement.</p>
+
+<p>Units of measurement can be specified using different G commands.</p>
+
+<pre><code class="gcode hljs"><span class="hljs-comment">; Everything after a semi-colon is a comment, parentheses are in line comments.</span>
+<span class="hljs-name">G20</span> <span class="hljs-comment">(Uses inches as unit of measurement)</span>
+<span class="hljs-name">G21</span> <span class="hljs-comment">(Uses millimeters as unit of measurement)</span></code></pre>
+
+<p>A distance mode operation is called to specify how the position of the print head will be defined.</p>
+
+<pre><code class="gcode hljs"><span class="hljs-name">G90</span> <span class="hljs-comment">(positioning defined as reference to part zero)</span>
+<span class="hljs-name">G91</span> <span class="hljs-comment">(positioning defined with reference to previous position)</span></code></pre>

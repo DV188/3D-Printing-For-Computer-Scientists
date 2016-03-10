@@ -51,6 +51,8 @@ honoursApp.config(['$routeProvider', function($routeProvider) {
         templateUrl: 'partials/slicer/slicer_printer_settings.html'
     }).when('/slicer_creating_gcode', {
         templateUrl: 'partials/slicer/slicer_creating_gcode.html'
+    }).when('/gcode_basics', {
+        templateUrl: 'partials/gcode/gcode_basics.html'
     }).otherwise({
         redirectTo: '/introduction'
     });
