@@ -55,6 +55,8 @@ honoursApp.config(['$routeProvider', function($routeProvider) {
         templateUrl: 'partials/gcode/gcode_basics.html'
     }).when('/building_a_model', {
         templateUrl: 'partials/gcode/building_a_model.html'
+    }).when('/constructing_a_model', {
+        templateUrl: 'partials/openscad/constructing_a_model.html'
     }).otherwise({
         redirectTo: '/introduction'
     });

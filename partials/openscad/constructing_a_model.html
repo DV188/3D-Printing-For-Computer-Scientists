@@ -1,0 +1,223 @@
+<h1>Constructing A Model</h1>
+
+<p>At this point, you should be familiar with a majority of the <a href="http://www.openscad.org/">OpenSCAD</a> features and functions.  Creating basic shapes and combining them to create a more complex model directly relates to most programming courses.  The difference being we now create a physical model in place of a theoretical one.</p>
+
+<p>Below we will go through a larger example that combines different features of the OpenSCAD language to create a model.  You are then able to follow through to the <a href="#/stereolithography">Stereolithography</a>, <a href="#/slicer">Slicer</a>, and <a href="#/gcode_basics">G-code</a> instructions to learn about printing your model.</p>
+
+<h3>Settlers of Catan</h3>
+
+<p>A popular board game named <a href="http://www.catan.com/">Settlers of Catan</a> is the inspiration behind this model.  Settlers of Catan was created by Klaus Teuber.  The game can be played with three to four players and takes a little over an hour to complete.  In this game, players compete with one another to set up a settlement across the game board earning points towards victory.  The settlers are able to barter with one another, trading resources like sheep and wheat to one another.</p>
+
+<p>In Settlers of Catan, there exists a game piece called the robber.  The robber blocks players from earning resources on a specific game tile and causes players to discard resources.  The model being created will be based on the robber token provided in Settlers of Catan.  The model is designed to be a trophy a player may be able to win at the end of a Catan game.  This model will be able to be 3D printed after following the steps to creating 3D printable G-code.</p>
+
+<p>To design our Catan Robber Trophy, we will first create the Catan Robber based off the game piece.  We will then use this file and import its modules into a Catan Robber Trophy OpenSCAD file which will combine our submodules into one cohesive structure.</p>
+
+<h5><a href="openscad_models/Catan Robber.scad">Catan Robber.scad</a></h5>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * Designed for 3D printing For Computer Scientists
+ * http://www.catan.com/
+ * http://dv188.github.io/3D-Printing-For-Computer-Scientists/#/introduction
+ *
+ * Settlers of Catan is a popular board game designed by Klaus Teuber.  Players
+ * assume the role of settlers with the goal of gathering resources to gain a
+ * strategic advantage over their competition.
+ *
+ * In Settlers of Catan, there exists a robber game piece that can be used to
+ * prevent other players from gaining resources in a specific location.  This
+ * OpenSCAD model has been designed to represent the shape of this robber token
+ * game piece.  The robber can be 3D printed and will be used to create the
+ * Catan Robber Trophy for 3D Printing For Computer Scientists.
+ *
+ * This model is meant to be parameterized and able to be resized outside of
+ * the scaling offered by slicing software.  Default measurements are in
+ * millimetres (mm).
+ */</span>
+
+<span class="hljs-comment">/*
+ * This module is responsible for creating the circular base at the bottom of
+ * the Catan robber token.  The result is a chamfered disk with given
+ * parameters.
+ *
+ * Parameters:
+ *      radius - determines the radius of the base
+ *      height - determines how high the base will be
+ */</span>
+<span class="hljs-keyword">module</span> <span class="hljs-built_in">robber_base</span>(radius, height) {
+    <span class="hljs-built_in">rotate_extrude</span>(convexity = <span class="hljs-number">10</span>, <span class="hljs-keyword">$fn</span> = <span class="hljs-number">100</span>)
+        <span class="hljs-built_in">polygon</span>(points = [[<span class="hljs-number">0, 0</span>], [radius, <span class="hljs-number">0</span>], [radius, height<span class="hljs-number">*0.75</span>], [radius*<span class="hljs-number">0.90</span>, height], [<span class="hljs-number">0</span>, height]]);
+}
+
+<span class="hljs-comment">/*
+ * The robber module produces the robber token based on given parameters.  The
+ * robber is meant to replicate the game piece in Settlers of Catan.
+ *
+ * Parameters:
+ *      radius - determines the radius of the robber token wrt. the robber body
+ *      height - determines the height of the robber token
+ */</span>
+<span class="hljs-keyword">module</span> <span class="hljs-built_in">robber</span>(radius, height) {
+    head_size = radius*<span class="hljs-number">0.75</span>;
+
+    <span class="hljs-comment">// Combine spherical head with elongated sphere body and the robber base.</span>
+    <span class="hljs-built_in">union</span>() {
+        <span class="hljs-built_in">translate</span>([<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, height - head_size]) {
+            <span class="hljs-built_in">sphere</span>(r = head_size);
+        }
+
+        <span class="hljs-built_in">translate</span>([<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, (height - head_size)/<span class="hljs-number">2</span>]) {
+            <span class="hljs-built_in">resize</span>([<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, height - head_size]) {
+                <span class="hljs-built_in">sphere</span>(r = radius);
+            }
+        }
+
+        <span class="hljs-built_in">robber_base</span>(radius, height*<span class="hljs-number">0.10</span>);
+    }
+}</code></pre>
+
+<h5><a href="openscad_models/Catan Robber Trophy.scad">Catan Robber Trophy.scad</a></h5>
+
+<pre><code class="hljs openscad"><span class="hljs-comment">/*
+ * Designed for 3D printing For Computer Scientists
+ * http://www.catan.com/
+ * http://dv188.github.io/3D-Printing-For-Computer-Scientists/#/introduction
+ *
+ * Settlers of Catan is a popular board game designed by Klaus Teuber.  Players
+ * assume the role of settlers with the goal of gathering resources to gain a
+ * strategic advantage over their competition.
+ *
+ * In Settlers of Catan, there exists a robber game piece that can be used to
+ * prevent other players from gaining resources in a specific location.  This
+ * OpenSCAD model has been designed to represent a trophy in the shape of this
+ * robber token game piece.  The trophy can be 3D printed and given as reward
+ * to the winner of a Catan game.  The model even includes a bottle opener
+ * towards the bottom of the model.
+ *
+ * This model is meant to be parameterized and able to be resized outside of
+ * the scaling offered by slicing software.  Default measurements are in
+ * millimetres (mm).
+ */</span>
+
+<span class="hljs-comment">// Specifies the modules from external file containing the Catan Robber.</span>
+<span class="hljs-comment">// Allows the modules to be used in this file as if they were defined here.</span>
+<span class="hljs-built_in">use</span> &lt;Catan Robber.scad&gt;
+
+<span class="hljs-keyword">$fn</span> = <span class="hljs-number">60</span>; <span class="hljs-comment">// Determines the resolution of round features throughout the model.</span>
+
+<span class="hljs-comment">/*
+ * The base of the trophy is designed below.  The trophy base is created to
+ * look like a typical trophy base and includes Catan text.
+ *
+ * Parameters:
+ *      length - determines the extrude length which results in increasing the x-axis wrt. the Catan lettering
+ *      width - determines the depth of the base wrt. the catan lettering
+ *      height - determines the base height wrt. the positive z-axis
+ */</span>
+<span class="hljs-keyword">module</span> <span class="hljs-built_in">trophy_base</span>(length, width, height) {
+    text_angle = <span class="hljs-number">90</span> - <span class="hljs-built_in">atan</span>((height*<span class="hljs-number">0.90</span>)/(width*<span class="hljs-number">0.25</span>)); <span class="hljs-number">// Determines the angle of the lettering to match that of the size dimensions.</span>
+
+    <span class="hljs-comment">// Remove cylinders from base to create an inverse bevelled look.</span>
+    <span class="hljs-built_in">difference</span>() {
+        <span class="hljs-comment">// Add text to base.</span>
+        <span class="hljs-built_in">union</span>() {
+            <span class="hljs-built_in">linear_extrude</span>(height = length, center = true) {
+                <span class="hljs-built_in">polygon</span>([[<span class="hljs-number">0, 0</span>], [width, <span class="hljs-number">0</span>], [width, height*<span class="hljs-number">0.10</span>], [width*<span class="hljs-number">0.75</span>, height], [<span class="hljs-number">0</span>, height]]);
+            }
+
+            <span class="hljs-built_in">translate</span>([width - <span class="hljs-number">3</span>, height*<span class="hljs-number">0.15</span>, <span class="hljs-number">0</span>]) {
+                <span class="hljs-built_in">rotate</span>([<span class="hljs-number">0</span>, <span class="hljs-number">90</span>, text_angle]) {
+                    <span class="hljs-built_in">linear_extrude</span>(<span class="hljs-number">3</span>) <span class="hljs-built_in">text</span>(<span class="hljs-string">"CATAN"</span>, font =<span class="hljs-string"> "Georgia:sltyle=Bold"</span>, size = <span class="hljs-number">12</span>, halign =<span class="hljs-string"> "center"</span>);
+                }
+            }
+        }
+
+        <span class="hljs-comment">// Cylinders to be removed from base.</span>
+        <span class="hljs-built_in">translate</span>([<span class="hljs-number">0</span>, height, <span class="hljs-number">0</span>])
+            <span class="hljs-built_in">cylinder</span>(length, r = height*<span class="hljs-number">0.25</span>, center = true);
+
+        <span class="hljs-built_in">translate</span>([width/<span class="hljs-number">2</span>, height, length/<span class="hljs-number">2</span>])
+            <span class="hljs-built_in">rotate</span>([<span class="hljs-number">0, 90, 0</span>]) <span class="hljs-built_in">cylinder</span>(width, r = height*<span class="hljs-number">0.25</span>, center = <span class="hljs-string">true</span>);
+
+        <span class="hljs-built_in">translate</span>([width/<span class="hljs-number">2</span>, height, -(length/<span class="hljs-number">2</span>)])
+            <span class="hljs-built_in">rotate</span>([<span class="hljs-number">0, 90, 0</span>]) <span class="hljs-built_in">cylinder</span>(width, r = height*<span class="hljs-number">0.25</span>, center = <span class="hljs-string">true</span>);
+    }
+}
+
+<span class="hljs-comment">/*
+ * Board games with friends can take some time to complete.  During the game
+ * duration, players will often enjoy refreshments that require bottle openers.
+ * Included in the Catan Robber Trophy is a bottle opener.  This module creates
+ * the bottle opener that later includes a slot for a coin for which the bottle
+ * cap is caught over.
+ *
+ * Parameters:
+ *      large - determines the length of the larger side of the trapezoid
+ *      small - determines the length of the smaller side of the trapezoid
+ *      height - determines how high the bottle opener will be
+ *      radius - determines how rounded the corners will be
+ */</span>
+<span class="hljs-keyword">module</span> <span class="hljs-built_in">bottle_opener</span>(large, small, height, radius) {
+    center_small = (large - small)/<span class="hljs-number">2</span>; <span class="hljs-comment">// Offsets small to be centered with respect to large.</span>
+
+    <span class="hljs-comment">// Connects four circles at each corner to create rounded trapezoid.</span>
+    <span class="hljs-built_in">hull</span>() {
+        <span class="hljs-built_in">translate</span>([-(large/<span class="hljs-number">2</span>) + radius, -(height/<span class="hljs-number">2</span>) + radius, <span class="hljs-number">0</span>]) <span class="hljs-built_in">circle</span>(r = radius);
+        <span class="hljs-built_in">translate</span>([(large/<span class="hljs-number">2</span>) - radius, -(height/<span class="hljs-number">2</span>) + radius, <span class="hljs-number">0</span>]) <span class="hljs-built_in">circle</span>(r = radius);
+        <span class="hljs-built_in">translate</span>([(small/<span class="hljs-number">2</span>) - radius, (height/<span class="hljs-number">2</span>) - radius, <span class="hljs-number">0</span>]) <span class="hljs-built_in">circle</span>(r = radius);
+        <span class="hljs-built_in">translate</span>([-(small/<span class="hljs-number">2</span>) + radius, (height/<span class="hljs-number">2</span>) - radius, <span class="hljs-number">0</span>]) <span class="hljs-built_in">circle</span>(r = radius);
+    }
+}
+
+<span class="hljs-comment">/*
+ * This module combines submodules created earlier to combine the parts
+ * required to build the entire Catan Robber Trophy.  The Trophy module
+ * incorporates the robber, trophy base, and bottle opener into one cohesive
+ * model.
+ *
+ * The size of the bottle opener is somewhat set in stone as it's size for a Canadian nickel.
+ * Rendering the trophy smaller than the opener will cause problems.
+ *
+ * Parameters:
+ *      base_length - determines the x-axis with respect to the catan lettering
+ *      base_width -  determines the depth with respect to the catan lettering
+ *      base_height -  determines the z-axis height of the base, used to shift the robber to top of base
+ *      robber_radius - determines how round to make the robber, if the robber is too round compared to the height the robber will not show up
+ *      robber_height - determines the height of the robber in the z-axis
+ */</span>
+<span class="hljs-keyword">module</span> <span class="hljs-built_in">Trophy</span>(base_length, base_width, base_height, robber_radius, robber_height) {
+    <span class="hljs-built_in">difference</span> () {
+        <span class="hljs-built_in">union</span>() {
+            <span class="hljs-built_in">translate</span>([<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, base_height]) <span class="hljs-built_in">robber</span>(robber_radius, robber_height); <span class="hljs-comment">// Robber.</span>
+
+            <span class="hljs-built_in">translate</span>([-(base_width*<span class="hljs-number">0.375</span> + base_height*<span class="hljs-number">0.125</span>), <span class="hljs-number">0</span>, <span class="hljs-number">0</span>])
+                <span class="hljs-built_in">rotate</span>([<span class="hljs-number">90, 0, 0</span>]) <span class="hljs-built_in">trophy_base</span>(base_length, base_width, base_height); <span class="hljs-comment">// Trophy base.</span>
+        }
+
+        <span class="hljs-built_in">rotate</span> ([<span class="hljs-number">0, 0, -90</span>]) {
+            <span class="hljs-built_in">translate</span>([<span class="hljs-number">0, 0, 4.99</span>]) {
+                <span class="hljs-built_in">linear_extrude</span>(<span class="hljs-number">10</span>, center = <span class="hljs-string">true</span>)
+                    <span class="hljs-built_in">bottle_opener</span>(<span class="hljs-number">34 , 28, 30, 1</span>); <span class="hljs-comment">// Bottle opener.</span>
+            }
+        }
+
+        <span class="hljs-comment">// Cutout to store a nickel for bottle opening.</span>
+        <span class="hljs-built_in">union</span>() {
+            <span class="hljs-built_in">translate</span>([<span class="hljs-number">21, 0, 3</span>])
+                <span class="hljs-built_in">cylinder</span>(<span class="hljs-number">2</span>, r = <span class="hljs-number">11</span>, center = <span class="hljs-string">true</span>);
+            <span class="hljs-built_in">translate</span>([<span class="hljs-number">0, -11, 2</span>])
+                <span class="hljs-built_in">cube</span>([<span class="hljs-number">21, 22, 2</span>]);
+        }
+    }
+}
+
+<span class="hljs-built_in">Trophy</span>(<span class="hljs-number">60, 60, 20, 15, 80</span>); <span class="hljs-comment">// Draws the trophy.</span></code></pre>
+
+<p>The result of rendering these two files can be visualized in OpenSCAD.</p>
+
+<a href="img/openscad/Catan Robber Trophy.png"><img ng-src="img/openscad/Catan Robber Trophy.png" id="centered"></a>
+
+<div class="btn-group btn-group-justified" id="page-next">
+    <a href="#/external_files" class="btn btn-default"><small><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></small> External Files</a>
+    <a class="btn btn-default">Constructing A Model</a>
+    <a href="#/stereolithography" class="btn btn-default">Stereolithography <small><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></small></a>
+</div>
