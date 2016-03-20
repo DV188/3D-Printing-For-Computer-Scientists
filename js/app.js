@@ -10,7 +10,7 @@ var honoursApp = angular.module('honoursApp', [
 
 honoursApp.config(['$routeProvider', function($routeProvider) {
     $routeProvider.when('/introduction', {
-        templateUrl: 'partials/openscad/introduction.html'
+        templateUrl: 'partials/introduction.html'
     }).when('/getting_started', {
         templateUrl: 'partials/openscad/getting_started.html'
     }).when('/programmers_option', {
