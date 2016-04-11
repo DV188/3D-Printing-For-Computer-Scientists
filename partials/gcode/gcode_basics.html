@@ -40,7 +40,7 @@
 
 <pre><code class="gcode hljs"><span class="hljs-name">M82</span> <span class="hljs-comment">(Set extruder to absolute mode.)</span></code></pre>
 
-<p>Fairly unique to 3D printers, the M104 command sets the extruder's temperature.  M104 ahs two parameters which specify the sensor being observed for temperature readings as well as the target temperature itself.</p>
+<p>Fairly unique to 3D printers, the M104 command sets the extruder's temperature.  M104 has two parameters which specify the sensor being observed for temperature readings as well as the target temperature itself.</p>
 
 <pre><code class="gcode hljs"><span class="hljs-name">M104</span> P1 S230 <span class="hljs-comment">(Set sensor 1 to 230 degrees C.)</span></code></pre>
 
@@ -55,7 +55,7 @@
 ;    H - selects heaters when in thermostatic mode
 ;    R - restore fan speed when printer paused
 ;    T - trigger temperature</span>
-<span class="hljs-name">M106</span> P1 I1 S200 <span class="hljs-comment">(Turns fan 1 on when the tempurature reaches 200 degrees C and inverts the signal.)</span>
+<span class="hljs-name">M106</span> P1 I1 S200 <span class="hljs-comment">(Turns fan 1 on when the temperature reaches 200 degrees C and inverts the signal.)</span>
 <span class="hljs-name">M107</span> <span class="hljs-comment">(Deprecated.)</span></code></pre>
 
 <p>Much like M104, the M109 command sets the extruder temperature.  Unlike M104, this command then waits for the temperature to be achieved.</p>
